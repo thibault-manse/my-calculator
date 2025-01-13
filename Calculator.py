@@ -14,8 +14,6 @@ def choix(flag):
             print("Rentrez un nombre entier s'il vous plait")
         if ope < 0 or ope > 8:
             print("Choix non valide")
-        if nb1 == 0 and ope == 7:
-            print("Racine de 0 impossible ! Choisissez un autres opérateurs")
         else :
             flag = 1
 
@@ -27,7 +25,7 @@ def choix(flag):
                 nb2 = int(input("Rentrez votre 2eme nombre : "))
             except ValueError:
                 print("Rentrez un nombre entier s'il vous plait")
-            if nb2 == 0:
+            if nb2 == 0 and (ope == 4 or ope == 5 or ope == 8):
                 print("Ce calcule est impossible avec 0 !")
             else :
                 flag2 = 1

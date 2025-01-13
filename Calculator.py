@@ -1,11 +1,12 @@
-flag = 0
+flag = 0 #switch
 
 try :
-    nb1 = int(input("Rentrez votre 1er nombre : "))
+    nb1 = int(input("Rentrez votre 1er nombre : ")) #fisrt number to calculate
 except ValueError:
     print("Rentrez un nombre entier s'il vous plait")
 
 def choix(flag):
+    #choice operator
     while flag == 0:
         try :
             ope = int(input("Choisissez un opérateur : \n 1 : + \n 2 : - \n 3 : x \n 4 : / \n 5 : % \n 6 : puissance \n 7 : racine \n 8 : div. euclidienne \n"))
@@ -16,6 +17,7 @@ def choix(flag):
         else :
             flag = 1
 
+    #if operator is square root
     if ope != 7:
         try :
             nb2 = int(input("Rentrez votre 2eme nombre : "))
@@ -23,13 +25,14 @@ def choix(flag):
             print("Rentrez un nombre entier s'il vous plait")
 
     flag = 0
-    liste = (nb2, ope, flag)
+    liste = (nb2, ope, flag) #tuple with number2, the operator and switch
     return liste
 
 result = 0
 flag2 = 0
-def calc(nb1, nb2, ope, result, flag2, flag):
-    if flag2 == 0:
+
+def calc(nb1, nb2, ope, result, flag2, flag): #fonction calculator with choise to continue or not
+    if flag2 == 0: #if it's the first calculation
         if ope == 1:
             result = nb1 + nb2
             print(nb1, "+", nb2, "=", result)
@@ -56,7 +59,7 @@ def calc(nb1, nb2, ope, result, flag2, flag):
             print(nb1, "//", nb2, "=", result)
         flag2 = 1
 
-    elif flag2 == 1 :
+    elif flag2 == 1 : #if it's not the first calculation
         result_prev = result
         if ope == 1:
             result = result + nb2
@@ -83,6 +86,7 @@ def calc(nb1, nb2, ope, result, flag2, flag):
             result = result // nb2
             print(result_prev, "//", nb2, "=", result)
     
+    #choise to continue the calculation or not
     try :
         choise = str(input("Continuer le calcule ? (Y ou N) ")).upper()
     except ValueError :

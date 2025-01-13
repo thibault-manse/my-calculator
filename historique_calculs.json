@@ -1,0 +1,32 @@
+[
+    {
+        "num1": 12,
+        "operation": "+",
+        "num2": 12,
+        "resultat": 24
+    },
+    {
+        "num1": 24,
+        "operation": "*",
+        "num2": 10,
+        "resultat": 240
+    },
+    {
+        "num1": 12,
+        "operation": "+",
+        "num2": 12,
+        "resultat": 24
+    },
+    {
+        "num1": 12,
+        "operation": "+",
+        "num2": 12,
+        "resultat": 24
+    },
+    {
+        "num1": 12,
+        "operation": "/",
+        "num2": 2,
+        "resultat": 6
+    }
+]

@@ -1,15 +1,35 @@
-import json
+
 
 """
-fonction json pour enregistrer l'historique
+fonction log pour enregistrer l'historique
 """
 
-# Fonction pour enregistrer l'historique des calculs dans un fichier
-def enregistrer_historique(historique):
-    # Ouvre le fichier en mode écriture (il sera créé s'il n'existe pas)
-    with open('historique_calculs.json', 'w') as f:
-        # Enregistre l'historique dans le fichier JSON
-        json.dump(historique, f, indent=4)
+
+
+#fonction pour ecrire l'historique dans un fichier log
+def enregistrer_historique_log(historique):
+    #ouvre le fichier log en mode ajout
+    with open('historique_calculs.log', 'a') as fichier_log:
+        #parcourir chaque calcu dans l'historique
+        for calcul in historique:
+            #formater et écrire chaque opération dans le log
+            fichier_log.write(f"{calcul['num1']} {calcul['operation']} {calcul['num2']} = {calcul['resultat']}\n")
+            fichier_log.write("=== Fin de session ===\n")
+
+# Fonction pour lire l'historique depuis le fichier log
+def lire_historique_log():
+    try:
+        # Ouvrir le fichier log en mode lecture ('r')
+        with open('historique_calculs.log', 'r') as fichier_log:
+            # Lire tout le contenu du fichier
+            contenu = fichier_log.read()
+            print("\n=== Contenu du fichier Log ===")
+            print(contenu)
+    except FileNotFoundError:
+        print("Le fichier Log n'existe pas.")
+    except Exception as e:
+        print(f"Erreur lors de la lecture du fichier Log : {e}")
+
 
 # Liste où on va rajouter les calculs
 historique = []
@@ -106,14 +126,20 @@ while True:
     })
 
     """
-    Enregistrement de l'historique
+    Enregistrement de l'historique log
     """
 
     # Enregistrer l'historique dans un fichier JSON
-    enregistrer_historique(historique)
+    # enregistrer_historique_json(historique)
+
+    #enregistrer l'historique dans un fichier log
+    enregistrer_historique_log(historique)
 
     # Boucle pour plusieurs calculs
     choix = input("\nVoulez-vous effectuer un autre calcul ? (oui/non) : ").lower()
     if choix not in ["oui", "o"]:
         print("Au revoir !")
         break  # Quitter la boucle
+
+# Appel de la fonction pour afficher l'historique log
+lire_historique_log()

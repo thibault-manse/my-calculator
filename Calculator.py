@@ -12,19 +12,25 @@ def choix(flag):
             ope = int(input("Choisissez un opérateur : \n 1 : + \n 2 : - \n 3 : x \n 4 : / \n 5 : % \n 6 : puissance \n 7 : racine \n 8 : div. euclidienne \n"))
         except ValueError:
             print("Rentrez un nombre entier s'il vous plait")
-        except ZeroDivisionError:
-            print("Division par zero impossible !")
         if ope < 0 or ope > 8:
             print("Choix non valide")
+        if nb1 == 0 and ope == 7:
+            print("Racine de 0 impossible ! Choisissez un autres opérateurs")
         else :
             flag = 1
 
+    flag2 = 0
     #if operator is square root
     if ope != 7:
-        try :
-            nb2 = int(input("Rentrez votre 2eme nombre : "))
-        except ValueError:
-            print("Rentrez un nombre entier s'il vous plait")
+        while flag2 == 0:
+            try :
+                nb2 = int(input("Rentrez votre 2eme nombre : "))
+            except ValueError:
+                print("Rentrez un nombre entier s'il vous plait")
+            if nb2 == 0:
+                print("Ce calcule est impossible avec 0 !")
+            else :
+                flag2 = 1
     else :
         nb2 = 0
 
@@ -33,10 +39,10 @@ def choix(flag):
     return liste
 
 result = 0
-flag2 = 0
+flag3 = 0
 
-def calc(nb1, nb2, ope, result, flag2, flag): #fonction calculator with choise to continue or not
-    if flag2 == 0: #if it's the first calculation
+def calc(nb1, nb2, ope, result, flag3, flag): #fonction calculator with choise to continue or not
+    if flag3 == 0: #if it's the first calculation
         if ope == 1:
             result = nb1 + nb2
             print(nb1, "+", nb2, "=", result)
@@ -61,9 +67,9 @@ def calc(nb1, nb2, ope, result, flag2, flag): #fonction calculator with choise t
         if ope == 8:
             result = nb1 // nb2
             print(nb1, "//", nb2, "=", result)
-        flag2 = 1
+        flag3 = 1
 
-    elif flag2 == 1 : #if it's not the first calculation
+    elif flag3 == 1 : #if it's not the first calculation
         result_prev = result
         if ope == 1:
             result = result + nb2
@@ -100,9 +106,9 @@ def calc(nb1, nb2, ope, result, flag2, flag): #fonction calculator with choise t
         
     if choise == "Y" :
         nb2, ope, flag= choix(flag)
-        calc(nb1, nb2, ope, result, flag2, flag)
+        calc(nb1, nb2, ope, result, flag3, flag)
     elif choise == "N" :
         return 0
     
 nb2, ope, flag = choix(flag)
-calc(nb1, nb2, ope, result, flag2, flag)
+calc(nb1, nb2, ope, result, flag3, flag)

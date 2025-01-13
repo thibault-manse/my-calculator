@@ -12,6 +12,8 @@ def choix(flag):
             ope = int(input("Choisissez un opérateur : \n 1 : + \n 2 : - \n 3 : x \n 4 : / \n 5 : % \n 6 : puissance \n 7 : racine \n 8 : div. euclidienne \n"))
         except ValueError:
             print("Rentrez un nombre entier s'il vous plait")
+        except ZeroDivisionError:
+            print("Division par zero impossible !")
         if ope < 0 or ope > 8:
             print("Choix non valide")
         else :
@@ -23,6 +25,8 @@ def choix(flag):
             nb2 = int(input("Rentrez votre 2eme nombre : "))
         except ValueError:
             print("Rentrez un nombre entier s'il vous plait")
+    else :
+        nb2 = 0
 
     flag = 0
     liste = (nb2, ope, flag) #tuple with number2, the operator and switch

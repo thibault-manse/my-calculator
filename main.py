@@ -5,7 +5,6 @@ fonction log pour enregistrer l'historique
 """
 
 
-
 #fonction pour ecrire l'historique dans un fichier log
 def enregistrer_historique_log(historique):
     #ouvre le fichier log en mode ajout

@@ -5,42 +5,96 @@ try :
 except ValueError:
     print("Rentrez un nombre entier s'il vous plait")
 
-while flag == 0:
+def choix(flag):
+    while flag == 0:
+        try :
+            ope = int(input("Choisissez un opérateur : \n 1 : + \n 2 : - \n 3 : x \n 4 : / \n 5 : % \n 6 : puissance \n 7 : racine \n 8 : div. euclidienne \n"))
+        except ValueError:
+            print("Rentrez un nombre entier s'il vous plait")
+        if ope < 0 or ope > 8:
+            print("Choix non valide")
+        else :
+            flag = 1
+
+    if ope != 7:
+        try :
+            nb2 = int(input("Rentrez votre 2eme nombre : "))
+        except ValueError:
+            print("Rentrez un nombre entier s'il vous plait")
+
+    flag = 0
+    liste = (nb2, ope, flag)
+    return liste
+
+result = 0
+flag2 = 0
+def calc(nb1, nb2, ope, result, flag2, flag):
+    if flag2 == 0:
+        if ope == 1:
+            result = nb1 + nb2
+            print(nb1, "+", nb2, "=", result)
+        if ope == 2:
+            result = nb1 - nb2
+            print(nb1, "-", nb2, "=", result)
+        if ope == 3:
+            result = nb1 * nb2
+            print(nb1, "x", nb2, "=", result)
+        if ope == 4:
+            result = nb1 / nb2
+            print(nb1, "/", nb2, "=", result)
+        if ope == 5:
+            result = nb1 % nb2
+            print(nb1, "%", nb2, "=", result)
+        if ope == 6:
+            result = nb1 ** nb2
+            print(nb1, "^", nb2, "=", result)
+        if ope == 7:
+            result = nb1 ** 0.5
+            print("Racine de ", nb1, "=", result)
+        if ope == 8:
+            result = nb1 // nb2
+            print(nb1, "//", nb2, "=", result)
+        flag2 = 1
+
+    elif flag2 == 1 :
+        result_prev = result
+        if ope == 1:
+            result = result + nb2
+            print(result_prev, "+", nb2, "=", result)
+        if ope == 2:
+            result = result - nb2
+            print(result_prev, "-", nb2, "=", result)
+        if ope == 3:
+            result = result * nb2
+            print(result_prev, "x", nb2, "=", result)
+        if ope == 4:
+            result = result / nb2
+            print(result_prev, "/", nb2, "=", result)
+        if ope == 5:
+            result = result % nb2
+            print(result_prev, "%", nb2, "=", result)
+        if ope == 6:
+            result = result ** nb2
+            print(result_prev, "^", nb2, "=", result)
+        if ope == 7:
+            result = result ** 0.5
+            print("Racine de ", result_prev, "=", result)
+        if ope == 8:
+            result = result // nb2
+            print(result_prev, "//", nb2, "=", result)
+    
     try :
-        ope = int(input("Choisissez un opérateur : \n 1 : + \n 2 : - \n 3 : x \n 4 : / \n 5 : % \n 6 : puissance \n 7 : racine \n 8 div. euclidienne \n"))
-    except ValueError:
-        print("Rentrez un nombre entier s'il vous plait")
-    if ope < 0 or ope > 8:
-        print("Choix non valide")
-    else :
-        flag = 1
-
-if ope != 7:
-    try :
-        nb2 = int(input("Rentrez votre 2eme nombre : "))
-    except ValueError:
-        print("Rentrez un nombre entier s'il vous plait")
-
-if ope == 1:
-    print(nb1, "+", nb2, "=", nb1 + nb2)
-
-if ope == 2:
-    print(nb1, "-", nb2, "=", nb1 - nb2)
-
-if ope == 3:
-    print(nb1, "x", nb2, "=", nb1 * nb2)
-
-if ope == 4:
-    print(nb1, "/", nb2, "=", nb1 / nb2)
-
-if ope == 5:
-    print(nb1, "%", nb2, "=", nb1 % nb2)
-
-if ope == 6:
-    print(nb1, "^", nb2, "=", nb1 ** nb2)
-
-if ope == 7:
-    print("Racine de ", nb1, "=", nb1 ** 0.5)
-
-if ope == 8:
-    print(nb1, "//", nb2, "=", nb1 // nb2)
+        choise = str(input("Continuer le calcule ? (Y ou N) ")).upper()
+    except ValueError :
+        print("Valeur non valide")
+    except choise != "Y" or choise != "N" :
+        print("Rentrez une valeur valide (Y ou N)")
+        
+    if choise == "Y" :
+        nb2, ope, flag= choix(flag)
+        calc(nb1, nb2, ope, result, flag2, flag)
+    elif choise == "N" :
+        return 0
+    
+nb2, ope, flag = choix(flag)
+calc(nb1, nb2, ope, result, flag2, flag)

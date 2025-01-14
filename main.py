@@ -3,27 +3,27 @@ from datetime import datetime
 """
 fonction log pour enregistrer l'historique
 """
-
-#fonction pour ecrire l'historique dans un fichier log
+# Fonction pour écrire l'historique dans un fichier log
 def enregistrer_historique_log(historique):
-    # Ouvre le fichier log en mode ajout
     with open('historique_calculs.log', 'a') as fichier_log:
-        # Parcourir chaque calcul dans l'historique
         for calcul in historique:
-            # Formater et écrire chaque opération dans le log 
             fichier_log.write(f"{calcul['num1']} {calcul['operation']} {calcul['num2']} = {calcul['resultat']}\n")
         fichier_log.write("=== Fin de session ===\n")
 
 """
-fonction pour lire l'historique depuis le fichier log
-"""
-#foncion pour ecrire dans l'historique du fichier log
-def enregistrer_historique(historique):
-    with open('historique_calculs.log', 'a') as fichier_log:
-        for calcul in historique:
-            fichier_log.write(f"{calcul['num1']} {calcul['operation']} {calcul['num2']} = {calcul['resultat']}\n")
-        fichier_log.write("=== Fin de session ===\n")
-    historique.clear()
+fonction pour lire historique
+"""        
+
+def lire_historique_log():
+    try:
+        with open('historique_calculs.log', 'r') as fichier_log:
+            contenu = fichier_log.read()
+            print("\n=== Contenu du fichier Log ===")
+            print(contenu)
+    except FileNotFoundError:
+        print("Le fichier Log n'existe pas.")
+    except Exception as e:
+        print(f"Erreur lors de la lecture du fichier Log : {e}")
 
 #fonction pour lire l'historique depuis le fichier log
 def lire_historique_log():

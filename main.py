@@ -44,10 +44,10 @@ def division(num1, num2):
         return "Erreur: division par zéro"
     return num1 / num2
 
-def modulo(num1, num2):  
+def modulo(num1, num2):
     return num1 % num2
 
-def racine_carree(num1):  # Fonction pour la racine carrée
+def racine_carree(num1):
     if num1 < 0:
         return "Erreur: impossible de calculer la racine carrée d'un nombre négatif"
     return num1 ** 0.5
@@ -62,7 +62,7 @@ while True:
     print("1. Voir l'historique")
     print("2. Effacer l'historique")
     print("3. Faire un calcul")
-    choix_historique = input("Choisissez une option (1-lire/2-effacer/3-continuer) : ")
+    choix_historique = input("Choisissez une option (1-lire/2-effacer/3-Faire un calcul) : ")
 
     if choix_historique == "1":
         lire_historique_log()
@@ -78,46 +78,49 @@ while True:
 
     try:
         # Demander à l'utilisateur s'il veut continuer avec un résultat précédent
-        if resultat is not None:  # Vérifier si 'resultat' a été défini (différent de None)
-            while True:  # Boucle pour vérifier si l'entrée est correcte
-                continuer = input(f"Votre dernier résultat était {resultat}. Voulez-vous l'utiliser pour le prochain calcul ? (o/n) : ").lower()
-                if continuer in ['o', 'n']:  # Si la réponse est correcte
-                    if continuer == "o":
-                        num1 = resultat  # Utiliser le dernier résultat comme premier nombre
-                    elif continuer == "n":
-                        num1 = float(input("Entrez le premier nombre : "))  # Demander un nouveau premier nombre
-                    break  # Sortir de la boucle après avoir reçu une entrée valide
+        if resultat is not None:
+            while True:
+                continuer = input(f"Votre dernier résultat était {resultat}. Voulez-vous l'utiliser pour le prochain calcul ? (o/n) : ").lower().strip()
+                if continuer in ["oui", "o"]:
+                    num1 = resultat
+                    break
+                elif continuer in ["non", "n"]:
+                    while True:
+                        try:
+                            num1 = float(input("Entrez le premier nombre : "))
+                            break
+                        except ValueError:
+                            print("Erreur : Veuillez entrer un nombre valide.")
+                    break
                 else:
-                    print("Erreur : Veuillez entrer un seul caractère (o ou n).")  # Message d'erreur si l'entrée est incorrecte
+                    print("Erreur : Veuillez entrer 'oui', 'o', 'non', ou 'n'.")
         else:
-            num1 = float(input("Entrez le premier nombre : "))  # Si c'est le premier calcul, demander le premier nombre
+            while True:
+                try:
+                    num1 = float(input("Entrez le premier nombre : "))
+                    break
+                except ValueError:
+                    print("Erreur : Veuillez entrer un nombre valide.")
 
         # Boucle pour demander et valider le second nombre
         while True:
             try:
                 num2 = float(input("Entrez le second nombre : "))
-                break  # Sortir de la boucle si l'entrée est valide
+                break
             except ValueError:
                 print("Erreur: Veuillez entrer un nombre valide pour le second nombre.")
 
         # Boucle pour demande et valider l'opération
         while True:
-            operateur = input("Entrez une opération (+, -, *, /, %), sqrt : ")
-            if operateur in ("+", "-", "*", "/", "%", "sqrt"):
+            operateur = input("Entrez une opération (+, -, *, /) : ")
+            if operateur in ["+", "-", "*", "/"]:
                 break
             else:
                 print("Erreur: Veuillez entrer un opérateur valide")
 
     except ValueError:
         print("Erreur : Veuillez entrer un nombre valide pour le premier nombre.")
-        continue  # Recommencer depuis le début
-
-    # Vérification et conversion num1 et num2
-    if isinstance(num1, (int, float)) and num1 == int(num1):
-        num1 = int(num1)
-
-    if isinstance(num2, (int, float)) and num2 == int(num2):
-        num2 = int(num2)
+        continue
 
     # Exécuter l'opération choisie
     if operateur == "+":
@@ -128,22 +131,15 @@ while True:
         resultat = multiplication(num1, num2)
     elif operateur == "/":
         resultat = division(num1, num2)
-    elif operateur == "%":
-        resultat = modulo(num1, num2)
-    elif operateur == "√":
-        resultat = racine_carree(num1)
-    else:
-        print("Erreur : Opération invalide")
-        continue  # Recommencer depuis le début
+   
+    
 
-    # Vérifier si le résultat est un entier ou un flottant
-    if isinstance(resultat, (int, float)) and resultat == int(resultat):
+    # Vérifier si le résultat est un entier
+    if isinstance(resultat, float) and resultat.is_integer():
         resultat = int(resultat)
 
-    # Afficher le résultat
-    print(f"{num1} {operateur} {num2} = {resultat}")
+    print(f"Résultat : {resultat}")
 
-    # Ajouter le calcul à l'historique
     historique.append({
         'num1': num1,
         'operation': operateur,
@@ -151,14 +147,13 @@ while True:
         'resultat': resultat
     })
 
-    # Enregistrer l'historique dans un fichier log
     enregistrer_historique_log(historique)
 
-    # Boucle pour plusieurs calculs
-    choix = input("\nVoulez-vous effectuer un autre calcul ? (oui/non) : ").lower()
+    choix = input("\nVoulez-vous effectuer un autre calcul ? (oui/non) : ").lower().strip()
     if choix not in ["oui", "o"]:
         print("Au revoir !")
-        break  # Quitter la boucle
+        break
+
 
 # Appel de la fonction pour afficher l'historique log
 lire_historique_log()

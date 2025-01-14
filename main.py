@@ -63,7 +63,10 @@ def division(num1, num2):
 def modulo(num1, num2):  
     return num1 % num2
 
-
+def racine_carree(num1):  # Fonction pour la racine carrée
+    if num1 < 0:
+        return "Erreur: impossible de calculer la racine carrée d'un nombre négatif"
+    return num1 ** 0.5
 
 # Initialiser 'resultat' avant la boucle
 resultat = None
@@ -113,8 +116,8 @@ while True:
 
         # Boucle pour demande et valider l'opération
         while True:
-            operateur = input("Entrez une opération (+, -, *, /, %) : ")
-            if operateur in ("+", "-", "*", "/", "%"):
+            operateur = input("Entrez une opération (+, -, *, /, %), √ : ")
+            if operateur in ("+", "-", "*", "/", "%", "√"):
                 break
             else:
                 print("Erreur: Veuillez entrez un opérateur valide")
@@ -141,6 +144,8 @@ while True:
         resultat = division(num1, num2)
     elif operateur == "%":
         resultat = modulo(num1, num2)
+    elif operateur == "√":
+        resultat = racine_carree(num1)
     else:
         print("Erreur : Opération invalide")
         continue  # Recommencer depuis le début

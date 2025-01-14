@@ -1,3 +1,6 @@
+"""
+fonction pour l'historique
+"""
 # Fonction pour écrire l'historique dans un fichier log
 def enregistrer_historique_log(historique):
     with open('historique_calculs.log', 'a') as fichier_log:
@@ -28,6 +31,10 @@ def effacer_historique_log():
 
 # Liste pour enregistrer les calculs
 historique = []
+
+"""
+Fonctions des calculs et Calculatrice
+"""
 
 # Fonctions des calculs
 def addition(num1, num2):
@@ -143,6 +150,10 @@ while True:
     # Afficher le résultat
     print(f"{num1} {operateur} {num2} = {resultat}")
 
+    """
+    Ajout calcul historique et enregistrement log
+    """
+
     # Ajouter le calcul à l'historique
     historique.append({
         'num1': num1,
@@ -153,6 +164,10 @@ while True:
 
     # Enregistrer l'historique dans un fichier log
     enregistrer_historique_log(historique)
+
+    """
+    Boucles pour multicalculs
+    """
 
     # Boucle pour plusieurs calculs
     choix = input("\nVoulez-vous effectuer un autre calcul ? (oui/non) : ").lower()

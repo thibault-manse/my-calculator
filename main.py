@@ -1,7 +1,3 @@
-
-"""
-fonction log pour enregistrer l'historique
-"""
 # Fonction pour écrire l'historique dans un fichier log
 def enregistrer_historique_log(historique):
     with open('historique_calculs.log', 'a') as fichier_log:
@@ -9,10 +5,7 @@ def enregistrer_historique_log(historique):
             fichier_log.write(f"{calcul['num1']} {calcul['operation']} {calcul['num2']} = {calcul['resultat']}\n")
         fichier_log.write("=== Fin d'historique ===\n")
 
-"""
-fonction pour lire historique
-"""        
-
+# Fonction pour lire l'historique du fichier log
 def lire_historique_log():
     try:
         with open('historique_calculs.log', 'r') as fichier_log:
@@ -24,9 +17,7 @@ def lire_historique_log():
     except Exception as e:
         print(f"Erreur lors de la lecture du fichier Log : {e}")
 
-"""
-pour effacer l'historique
-"""
+# Fonction pour effacer l'historique du fichier log
 def effacer_historique_log():
     try:
         with open('historique_calculs.log', 'w') as fichier_log:
@@ -35,15 +26,8 @@ def effacer_historique_log():
     except Exception as e:
         print(f"Erreur lors de la suppression de l'historique : {e}")
 
-# Liste où on va rajouter les calculs
-
-
-# Liste où on va rajouter les calculs
+# Liste pour enregistrer les calculs
 historique = []
-
-"""
-fonctions des calculs
-"""
 
 # Fonctions des calculs
 def addition(num1, num2):
@@ -74,35 +58,37 @@ resultat = None
 # Boucle de la Calculatrice
 while True:
     print("\n=== CALCULATRICE ===")  # Titre clair
-    """
-    ajout d'un menu pour les options de l'historique
-    """
     print("\nOption de l'historique :")
     print("1. Voir l'historique")
     print("2. Effacer l'historique")
     print("3. Faire un calcul")
-    choix_historique = input("Choisissez une option(1-lire/2-effacer-/3-continuer) :")
+    choix_historique = input("Choisissez une option (1-lire/2-effacer/3-continuer) : ")
 
     if choix_historique == "1":
         lire_historique_log()
-        continue 
+        continue
     elif choix_historique == "2":
         effacer_historique_log()
         continue
     elif choix_historique == "3":
         pass
     else:
-        print("Option invalide.Veuillez choisir 1, 2 ou 3")
+        print("Option invalide. Veuillez choisir 1, 2 ou 3")
         continue
 
     try:
         # Demander à l'utilisateur s'il veut continuer avec un résultat précédent
         if resultat is not None:  # Vérifier si 'resultat' a été défini (différent de None)
-            continuer = input(f"Votre dernier résultat était {resultat}. Voulez-vous l'utiliser pour le prochain calcul ? (oui/non) : ").lower()
-            if continuer in ['oui', 'o']:
-                num1 = resultat  # Utiliser le dernier résultat comme premier nombre
-            elif continuer in ['non', 'n']:
-                num1 = float(input("Entrez le premier nombre : "))  # Demander un nouveau premier nombre
+            while True:  # Boucle pour vérifier si l'entrée est correcte
+                continuer = input(f"Votre dernier résultat était {resultat}. Voulez-vous l'utiliser pour le prochain calcul ? (o/n) : ").lower()
+                if continuer in ['o', 'n']:  # Si la réponse est correcte
+                    if continuer == "o":
+                        num1 = resultat  # Utiliser le dernier résultat comme premier nombre
+                    elif continuer == "n":
+                        num1 = float(input("Entrez le premier nombre : "))  # Demander un nouveau premier nombre
+                    break  # Sortir de la boucle après avoir reçu une entrée valide
+                else:
+                    print("Erreur : Veuillez entrer un seul caractère (o ou n).")  # Message d'erreur si l'entrée est incorrecte
         else:
             num1 = float(input("Entrez le premier nombre : "))  # Si c'est le premier calcul, demander le premier nombre
 
@@ -116,11 +102,11 @@ while True:
 
         # Boucle pour demande et valider l'opération
         while True:
-            operateur = input("Entrez une opération (+, -, *, /, %), √ : ")
-            if operateur in ("+", "-", "*", "/", "%", "√"):
+            operateur = input("Entrez une opération (+, -, *, /, %), sqrt : ")
+            if operateur in ("+", "-", "*", "/", "%", "sqrt"):
                 break
             else:
-                print("Erreur: Veuillez entrez un opérateur valide")
+                print("Erreur: Veuillez entrer un opérateur valide")
 
     except ValueError:
         print("Erreur : Veuillez entrer un nombre valide pour le premier nombre.")
@@ -159,20 +145,13 @@ while True:
 
     # Ajouter le calcul à l'historique
     historique.append({
-        
         'num1': num1,
         'operation': operateur,
         'num2': num2,
         'resultat': resultat
     })
 
-    """
-    Enregistrement de l'historique log
-    """
-
-
-
-    #enregistrer l'historique dans un fichier log
+    # Enregistrer l'historique dans un fichier log
     enregistrer_historique_log(historique)
 
     # Boucle pour plusieurs calculs

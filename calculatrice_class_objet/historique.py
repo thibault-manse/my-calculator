@@ -37,7 +37,7 @@ class Historique:
             Une liste de dictionnaires où chaque dictionnaire représente un calcul.
         """
         try:
-            with open(self.log_file, 'a') as fichier_log:
+            with open(self.log_file, 'a', encoding ="utf-8") as fichier_log:
                 for calcul in historique:
                     # Enregistre chaque calcul au format lisible
                     fichier_log.write(f"{calcul['num1']} {calcul['operation']} {calcul['num2']} = {calcul['resultat']}\n")
@@ -54,7 +54,7 @@ class Historique:
         Si le fichier n'existe pas, elle affiche un message d'erreur.
         """
         try:
-            with open(self.log_file, 'r') as fichier_log:
+            with open(self.log_file, 'r', encoding="utf-8") as fichier_log:
                 contenu = fichier_log.read()
                 print("\n=== Contenu du fichier Log ===")
                 print(contenu)
@@ -70,7 +70,7 @@ class Historique:
         Cette méthode vide le fichier log spécifié pour supprimer l'historique des calculs.
         """
         try:
-            with open(self.log_file, 'w') as fichier_log:
+            with open(self.log_file, 'w', encoding="utf-8") as fichier_log:
                 pass  # N'écrit rien pour vider le contenu du fichier
             print("\nL'historique a été effacé avec succès.")
         except Exception as e:

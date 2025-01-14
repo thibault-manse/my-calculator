@@ -32,7 +32,7 @@ class Calculatrice:
 
     def division(self, num1, num2):
         if num2 == 0:
-            return "Erreur: division par zéro"  # Message d'erreur si on tente une division par zéro
+            return "Erreur: division par zero"  # Message d'erreur si on tente une division par zéro
         return num1 / num2
 
     def demander_nombre(self, prompt):
@@ -50,7 +50,7 @@ class Calculatrice:
             operateur = input("Entrez une opération (+, -, *, /) : ")
             if operateur in ("+", "-", "*", "/"):
                 return operateur  # Retourne l'opérateur si valide
-            print("Erreur: Veuillez entrer un opérateur valide.")  
+            print("Erreur: Veuillez entrer un opérateur valide.")
 
     def executer_calcul(self, num1, num2, operateur):
         """
@@ -87,15 +87,15 @@ class Calculatrice:
         choix_historique = input("Choisissez une option (1-lire/2-effacer/3-Calculer) : ")
         if choix_historique == "1":
             self.historique_manager.lire()
-            return False
+            return True  # Continuer après avoir vu l'historique
         elif choix_historique == "2":
             self.historique_manager.effacer()
-            return False
+            return True  # Continuer après avoir effacé l'historique
         elif choix_historique == "3":
-            return True
+            return False  # Aller faire un calcul, en sortant du menu
         else:
             print("Option invalide. Veuillez choisir 1, 2 ou 3")
-            return False
+            return True  # Retourner au menu si l'option est invalide
 
     def run(self):
         """
@@ -106,9 +106,12 @@ class Calculatrice:
         """
         while True:
             print("\n=== CALCULATRICE ===")
+
+            # Menu historique (si l'utilisateur le souhaite)
             if not self.menu_historique():
                 continue
 
+            # Si un résultat existe déjà, on demande à l'utilisateur s'il veut l'utiliser
             if self.resultat is not None:
                 utiliser_resultat = input(f"Votre dernier résultat était {self.resultat}. Voulez-vous l'utiliser ? (o/n) : ").lower()
                 if utiliser_resultat == "o":
@@ -132,12 +135,15 @@ class Calculatrice:
             if isinstance(self.resultat, (int, float)) and self.resultat == int(self.resultat):
                 self.resultat = int(self.resultat)
 
+            # Calcul du résultat
             self.resultat = self.executer_calcul(num1, num2, operateur)
             print(f"Résultat : {self.resultat}")
 
+            # Ajout du calcul à l'historique
             self.ajouter_historique(num1, operateur, num2, self.resultat)
             self.historique_manager.enregistrer(self.historique)
 
+            # Demande si l'utilisateur veut effectuer un autre calcul
             continuer = input("\nVoulez-vous effectuer un autre calcul ? (o/n) : ").lower()
             if continuer not in ["o", "oui"]:
                 print("Au revoir !")

@@ -1,21 +1,31 @@
-
+from datetime import datetime
 
 """
 fonction log pour enregistrer l'historique
 """
 
-
 #fonction pour ecrire l'historique dans un fichier log
 def enregistrer_historique_log(historique):
-    #ouvre le fichier log en mode ajout
+    # Ouvre le fichier log en mode ajout
     with open('historique_calculs.log', 'a') as fichier_log:
-        #parcourir chaque calcu dans l'historique
+        # Parcourir chaque calcul dans l'historique
         for calcul in historique:
-            #formater et écrire chaque opération dans le log
+            # Formater et écrire chaque opération dans le log 
             fichier_log.write(f"{calcul['num1']} {calcul['operation']} {calcul['num2']} = {calcul['resultat']}\n")
-            fichier_log.write("=== Fin de session ===\n")
+        fichier_log.write("=== Fin de session ===\n")
 
-# Fonction pour lire l'historique depuis le fichier log
+"""
+fonction pour lire l'historique depuis le fichier log
+"""
+#foncion pour ecrire dans l'historique du fichier log
+def enregistrer_historique(historique):
+    with open('historique_calculs.log', 'a') as fichier_log:
+        for calcul in historique:
+            fichier_log.write(f"{calcul['num1']} {calcul['operation']} {calcul['num2']} = {calcul['resultat']}\n")
+        fichier_log.write("=== Fin de session ===\n")
+    historique.clear()
+
+#fonction pour lire l'historique depuis le fichier log
 def lire_historique_log():
     try:
         # Ouvrir le fichier log en mode lecture ('r')
@@ -118,6 +128,7 @@ while True:
 
     # Ajouter le calcul à l'historique
     historique.append({
+        
         'num1': num1,
         'operation': operateur,
         'num2': num2,
@@ -128,8 +139,7 @@ while True:
     Enregistrement de l'historique log
     """
 
-    # Enregistrer l'historique dans un fichier JSON
-    # enregistrer_historique_json(historique)
+
 
     #enregistrer l'historique dans un fichier log
     enregistrer_historique_log(historique)

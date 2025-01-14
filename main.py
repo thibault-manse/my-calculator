@@ -7,7 +7,7 @@ def enregistrer_historique_log(historique):
     with open('historique_calculs.log', 'a') as fichier_log:
         for calcul in historique:
             fichier_log.write(f"{calcul['num1']} {calcul['operation']} {calcul['num2']} = {calcul['resultat']}\n")
-        fichier_log.write("=== Fin d'historique' ===\n")
+        fichier_log.write("=== Fin d'historique ===\n")
 
 """
 fonction pour lire historique
@@ -60,6 +60,11 @@ def division(num1, num2):
         return "Erreur: division par zéro"
     return num1 / num2
 
+def modulo(num1, num2):  
+    return num1 % num2
+
+
+
 # Initialiser 'resultat' avant la boucle
 resultat = None
 
@@ -108,8 +113,8 @@ while True:
 
         # Boucle pour demande et valider l'opération
         while True:
-            operateur = input("Entrez une opération (+, -, *, /) : ")
-            if operateur in ("+", "-", "*", "/"):
+            operateur = input("Entrez une opération (+, -, *, /, %) : ")
+            if operateur in ("+", "-", "*", "/", "%"):
                 break
             else:
                 print("Erreur: Veuillez entrez un opérateur valide")
@@ -134,6 +139,8 @@ while True:
         resultat = multiplication(num1, num2)
     elif operateur == "/":
         resultat = division(num1, num2)
+    elif operateur == "%":
+        resultat = modulo(num1, num2)
     else:
         print("Erreur : Opération invalide")
         continue  # Recommencer depuis le début

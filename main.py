@@ -8,7 +8,7 @@ def enregistrer_historique_log(historique):
     with open('historique_calculs.log', 'a') as fichier_log:
         for calcul in historique:
             fichier_log.write(f"{calcul['num1']} {calcul['operation']} {calcul['num2']} = {calcul['resultat']}\n")
-        fichier_log.write("=== Fin de session ===\n")
+        fichier_log.write("=== Fin d'historique' ===\n")
 
 """
 fonction pour lire historique
@@ -67,6 +67,27 @@ resultat = None
 # Boucle de la Calculatrice
 while True:
     print("\n=== CALCULATRICE ===")  # Titre clair
+    """
+    ajout d'un menu pour les options de l'historique
+    """
+    print("\nOption de l'historique :")
+    print("1. Voir l'historique")
+    print("2. Effacer l'historique")
+    print("3. Faire un calcul")
+    choix_historique = input("Choisissez une option(1-lire/2-effacer-/3-continuer) :")
+
+    if choix_historique == "1":
+        lire_historique_log()
+        continue 
+    elif choix_historique == "2":
+        effacer_historique_log()
+        continue
+    elif choix_historique == "3":
+        pass
+    else:
+        print("Option invalide.Veuillez choisir 1, 2 ou 3")
+        continue
+
     try:
         # Demander à l'utilisateur s'il veut continuer avec un résultat précédent
         if resultat is not None:  # Vérifier si 'resultat' a été défini (différent de None)

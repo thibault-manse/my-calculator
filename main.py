@@ -1,4 +1,3 @@
-from datetime import datetime
 
 """
 fonction log pour enregistrer l'historique

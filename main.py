@@ -25,19 +25,18 @@ def lire_historique_log():
     except Exception as e:
         print(f"Erreur lors de la lecture du fichier Log : {e}")
 
-#fonction pour lire l'historique depuis le fichier log
-def lire_historique_log():
+"""
+pour effacer l'historique
+"""
+def effacer_historique_log():
     try:
-        # Ouvrir le fichier log en mode lecture ('r')
-        with open('historique_calculs.log', 'r') as fichier_log:
-            # Lire tout le contenu du fichier
-            contenu = fichier_log.read()
-            print("\n=== Contenu du fichier Log ===")
-            print(contenu)
-    except FileNotFoundError:
-        print("Le fichier Log n'existe pas.")
+        with open('historique_calculs.log', 'w') as fichier_log:
+            pass  # Écrire rien pour effacer le contenu
+        print("\nL'historique a été effacé avec succès.")
     except Exception as e:
-        print(f"Erreur lors de la lecture du fichier Log : {e}")
+        print(f"Erreur lors de la suppression de l'historique : {e}")
+
+# Liste où on va rajouter les calculs
 
 
 # Liste où on va rajouter les calculs

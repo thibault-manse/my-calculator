@@ -1,3 +1,6 @@
+"""
+fonction pour l'historique
+"""
 # Fonction pour écrire l'historique dans un fichier log
 def enregistrer_historique_log(historique):
     with open('historique_calculs.log', 'a') as fichier_log:
@@ -28,6 +31,10 @@ def effacer_historique_log():
 
 # Liste pour enregistrer les calculs
 historique = []
+
+"""
+Fonctions des calculs et Calculatrice
+"""
 
 # Fonctions des calculs
 def addition(num1, num2):
@@ -140,6 +147,14 @@ while True:
 
     print(f"Résultat : {resultat}")
 
+<<<<<<< HEAD
+=======
+    """
+    Ajout calcul historique et enregistrement log
+    """
+
+    # Ajouter le calcul à l'historique
+>>>>>>> c5b4272b51e7bc5c7b465804840ff22c67fb0b8e
     historique.append({
         'num1': num1,
         'operation': operateur,
@@ -149,7 +164,16 @@ while True:
 
     enregistrer_historique_log(historique)
 
+<<<<<<< HEAD
     choix = input("\nVoulez-vous effectuer un autre calcul ? (oui/non) : ").lower().strip()
+=======
+    """
+    Boucles pour multicalculs
+    """
+
+    # Boucle pour plusieurs calculs
+    choix = input("\nVoulez-vous effectuer un autre calcul ? (oui/non) : ").lower()
+>>>>>>> c5b4272b51e7bc5c7b465804840ff22c67fb0b8e
     if choix not in ["oui", "o"]:
         print("Au revoir !")
         break

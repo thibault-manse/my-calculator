@@ -1,5 +1,6 @@
 from historique import Historique
 
+
 class Calculatrice:
     """
     Classe principale pour effectuer des calculs.
@@ -100,7 +101,8 @@ class Calculatrice:
         print("1. Voir l'historique")
         print("2. Effacer l'historique")
         print("3. Faire un calcul")
-        choix_historique = input("Choisissez une option (1-lire/2-effacer/3-calculer) : ")
+        choix_historique = input(
+            "Choisissez une option (1-lire/2-effacer/3-calculer) : ")
         if choix_historique == "1":
             self.historique_manager.lire()
             return True  # Continuer après avoir vu l'historique
@@ -112,31 +114,41 @@ class Calculatrice:
         else:
             print("Option invalide. Veuillez choisir 1, 2 ou 3.")
             return True
-        
-    
 
     def run(self):
         """
         Exécute la calculatrice en boucle.
         """
-        while True:
-            print("\n=== CALCULATRICE ===")
+        mode_calcul = False  # indique mode calcul en continu
+        # indique si l'utilisateur veut continuer avec un nouveau calcul
+        continuer_calcul = True
+        calculette_bool = True  # indique si l'utilisateur veut continuer avec la calculette
 
-            # Menu historique
-            print("\n=== MENU HISTORIQUE ===")
-            continuer_menu = self.menu_historique()
-            if continuer_menu:
-                continue
+        while calculette_bool:
+            if not mode_calcul:
+                if not continuer_calcul:
+                    print("\n=== CALCULATRICE ===")
+                    continuer_menu = self.menu_historique()
+                    if continuer_menu:
+                        continue
 
-            # Réutilisation du dernier résultat
-            if self.resultat is not None:
-                utiliser_resultat = input(f"Votre dernier résultat était {self.resultat}. Voulez-vous l'utiliser ? (o/n) : ").lower()
-                if utiliser_resultat == "o":
-                    num1 = self.resultat
                 else:
-                    num1 = self.demander_nombre("Entrez le premier nombre : ")
+
+                    # Réutilisation du dernier résultat
+                    if self.resultat is not None:
+                        utiliser_resultat = input(f"Votre dernier résultat était {
+
+                            self.resultat}. Voulez-vous l'utiliser ? (o/n) : ").lower()
+                        if utiliser_resultat == "o":
+                            num1 = self.resultat
+                        else:
+                            num1 = self.demander_nombre(
+                                "Entrez le premier nombre : ")
+                    else:
+                        num1 = self.demander_nombre(
+                            "Entrez le premier nombre : ")
             else:
-                num1 = self.demander_nombre("Entrez le premier nombre : ")
+                num1 = self.resultat
 
             operateur = self.demander_operation()
             num2 = self.demander_nombre("Entrez le second nombre : ")
@@ -156,7 +168,16 @@ class Calculatrice:
             self.historique_manager.enregistrer(self.historique)
 
             # Demande de continuer ou quitter complètement
-            continuer = input("\nVoulez-vous effectuer un tout nouveau calcul ? (o/n) : ").lower()
-            if continuer not in ["o", "oui"]:
-                print("Au revoir !")
-                break
+            continuer = input(
+                "\nVoulez-vous effectuer un tout nouveau calcul ? (o/n) : ").lower()
+            if continuer == "oui" or continuer == "o":
+                continuer_calcul = True
+            else:
+                continuer_calcul = False
+                quitter = input(
+                    "Voulez-vous quitter la calculatrice ? (o/n) : ").lower()
+                if quitter in ["o", "oui"]:
+                    print("Au revoir !")
+                    calculette_bool = False
+                else:
+                    mode_calcul = True

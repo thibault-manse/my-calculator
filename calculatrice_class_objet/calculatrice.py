@@ -23,15 +23,19 @@ class Calculatrice:
         self.resultat = None  # Aucun résultat initial
 
     def addition(self, num1, num2):
+        """Effectue l'addition de deux nombres"""
         return num1 + num2
 
     def soustraction(self, num1, num2):
+        """Effectue la soustraction de deux nombres"""
         return num1 - num2
 
     def multiplication(self, num1, num2):
+        """Effectue la multiplication de deux nombres"""
         return num1 * num2
 
     def division(self, num1, num2):
+        """Effectue la division de deux nombres et gère la division par zéro"""
         if num2 == 0:
             return "Erreur: division par zéro"  # Gestion de la division par zéro
         return num1 / num2
@@ -108,6 +112,8 @@ class Calculatrice:
         else:
             print("Option invalide. Veuillez choisir 1, 2 ou 3.")
             return True
+        
+    
 
     def run(self):
         """
@@ -149,8 +155,8 @@ class Calculatrice:
             self.ajouter_historique(num1, operateur, num2, self.resultat)
             self.historique_manager.enregistrer(self.historique)
 
-            # Demande de continuer ou non
-            continuer = input("\nVoulez-vous effectuer un autre calcul ? (o/n) : ").lower()
+            # Demande de continuer ou quitter complètement
+            continuer = input("\nVoulez-vous effectuer un tout nouveau calcul ? (o/n) : ").lower()
             if continuer not in ["o", "oui"]:
                 print("Au revoir !")
                 break

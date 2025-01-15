@@ -1,46 +1,46 @@
 """
-fonction pour l'historique
+Function for the history
 """
-# Fonction pour écrire l'historique dans un fichier log
-def enregistrer_historique_log(historique):
-    with open('historique_calculs.log', 'a') as fichier_log:
-        for calcul in historique:
-            fichier_log.write(f"{calcul['num1']} {calcul['operation']} {calcul['num2']} = {calcul['resultat']}\n")
-        fichier_log.write("=== Fin d'historique ===\n")
+# Function to write the history to a log file
+def save_history_log(history):
+    with open('calculation_history.log', 'a') as log_file:
+        for calculation in history:
+            log_file.write(f"{calculation['num1']} {calculation['operation']} {calculation['num2']} = {calculation['result']}\n")
+        log_file.write("=== End of history ===\n")
 
-# Fonction pour lire l'historique du fichier log
-def lire_historique_log():
+# Function to read the history from the log file
+def read_history_log():
     try:
-        with open('historique_calculs.log', 'r') as fichier_log:
-            contenu = fichier_log.read()
-            print("\n=== Contenu du fichier Log ===")
-            print(contenu)
+        with open('calculation_history.log', 'r') as log_file:
+            content = log_file.read()
+            print("\n=== Log File Content ===")
+            print(content)
     except FileNotFoundError:
-        print("Le fichier Log n'existe pas.")
+        print("The Log file does not exist.")
     except Exception as e:
-        print(f"Erreur lors de la lecture du fichier Log : {e}")
+        print(f"Error reading the Log file: {e}")
 
-# Fonction pour effacer l'historique du fichier log
-def effacer_historique_log():
+# Function to clear the history from the log file
+def clear_history_log():
     try:
-        with open('historique_calculs.log', 'w') as fichier_log:
-            pass  # Écrire rien pour effacer le contenu
-        print("\nL'historique a été effacé avec succès.")
+        with open('calculation_history.log', 'w') as log_file:
+            pass  # Write nothing to clear the content
+        print("\nThe history has been successfully cleared.")
     except Exception as e:
-        print(f"Erreur lors de la suppression de l'historique : {e}")
+        print(f"Error deleting the history: {e}")
 
-# Liste pour enregistrer les calculs
-historique = []
+# List to store the calculations
+history = []
 
 """
-Fonctions des calculs et Calculatrice
+Functions for calculations and Calculator
 """
 
-# Fonctions des calculs
+# Calculation functions
 def addition(num1, num2):
     return num1 + num2
 
-def soustraction(num1, num2):
+def subtraction(num1, num2):
     return num1 - num2
 
 def multiplication(num1, num2):
@@ -48,136 +48,127 @@ def multiplication(num1, num2):
 
 def division(num1, num2):
     if num2 == 0:
-        return "Erreur: division par zéro"
+        return "Error: division by zero"
     return num1 / num2
 
 def modulo(num1, num2):
     return num1 % num2
 
-def racine_carree(num1):
+def square_root(num1):
     if num1 < 0:
-        return "Erreur: impossible de calculer la racine carrée d'un nombre négatif"
+        return "Error: cannot calculate the square root of a negative number"
     return num1 ** 0.5
 
-# Initialiser 'resultat' avant la boucle
-resultat = None
+# Initialize 'result' before the loop
+result = None
 
-# Boucle de la Calculatrice
+# Calculator loop
 while True:
-    print("\n=== CALCULATRICE ===")  # Titre clair
-    print("\nOption de l'historique :")
-    print("1. Voir l'historique")
-    print("2. Effacer l'historique")
-    print("3. Faire un calcul")
-    choix_historique = input("Choisissez une option (1-lire/2-effacer/3-Faire un calcul) : ")
+    print("\n=== CALCULATOR ===")  # Clear title
+    print("\nHistory options:")
+    print("1. View history")
+    print("2. Clear history")
+    print("3. Make a calculation")
+    history_choice = input("Choose an option (1-view/2-clear/3-make a calculation): ")
 
-    if choix_historique == "1":
-        lire_historique_log()
+    if history_choice == "1":
+        read_history_log()
         continue
-    elif choix_historique == "2":
-        effacer_historique_log()
+    elif history_choice == "2":
+        clear_history_log()
         continue
-    elif choix_historique == "3":
+    elif history_choice == "3":
         pass
     else:
-        print("Option invalide. Veuillez choisir 1, 2 ou 3")
+        print("Invalid option. Please choose 1, 2, or 3.")
         continue
 
     try:
-        # Demander à l'utilisateur s'il veut continuer avec un résultat précédent
-        if resultat is not None:
+        # Ask the user if they want to continue with a previous result
+        if result is not None:
             while True:
-                continuer = input(f"Votre dernier résultat était {resultat}. Voulez-vous l'utiliser pour le prochain calcul ? (o/n) : ").lower().strip()
-                if continuer in ["oui", "o"]:
-                    num1 = resultat
+                continue_choice = input(f"Your last result was {result}. Do you want to use it for the next calculation? (y/n): ").lower().strip()
+                if continue_choice in ["yes", "y"]:
+                    num1 = result
                     break
-                elif continuer in ["non", "n"]:
+                elif continue_choice in ["no", "n"]:
                     while True:
                         try:
-                            num1 = float(input("Entrez le premier nombre : "))
+                            num1 = float(input("Enter the first number: "))
                             break
                         except ValueError:
-                            print("Erreur : Veuillez entrer un nombre valide.")
+                            print("Error: Please enter a valid number.")
                     break
                 else:
-                    print("Erreur : Veuillez entrer 'oui', 'o', 'non', ou 'n'.")
+                    print("Error: Please enter 'yes', 'y', 'no', or 'n'.")
         else:
             while True:
                 try:
-                    num1 = float(input("Entrez le premier nombre : "))
+                    num1 = float(input("Enter the first number: "))
                     break
                 except ValueError:
-                    print("Erreur : Veuillez entrer un nombre valide.")
+                    print("Error: Please enter a valid number.")
 
-        # Boucle pour demander et valider le second nombre
+        # Loop to ask and validate the second number
         while True:
             try:
-                num2 = float(input("Entrez le second nombre : "))
+                num2 = float(input("Enter the second number: "))
                 break
             except ValueError:
-                print("Erreur: Veuillez entrer un nombre valide pour le second nombre.")
+                print("Error: Please enter a valid number for the second number.")
 
-        # Boucle pour demande et valider l'opération
+        # Loop to ask and validate the operation
         while True:
-            operateur = input("Entrez une opération (+, -, *, /) : ")
-            if operateur in ["+", "-", "*", "/"]:
+            operator = input("Enter an operation (+, -, *, /): ")
+            if operator in ["+", "-", "*", "/"]:
                 break
             else:
-                print("Erreur: Veuillez entrer un opérateur valide")
+                print("Error: Please enter a valid operator")
 
     except ValueError:
-        print("Erreur : Veuillez entrer un nombre valide pour le premier nombre.")
+        print("Error: Please enter a valid number for the first number.")
         continue
 
-    # Exécuter l'opération choisie
-    if operateur == "+":
-        resultat = addition(num1, num2)
-    elif operateur == "-":
-        resultat = soustraction(num1, num2)
-    elif operateur == "*":
-        resultat = multiplication(num1, num2)
-    elif operateur == "/":
-        resultat = division(num1, num2)
-   
-    
+    # Perform the chosen operation
+    if operator == "+":
+        result = addition(num1, num2)
+    elif operator == "-":
+        result = subtraction(num1, num2)
+    elif operator == "*":
+        result = multiplication(num1, num2)
+    elif operator == "/":
+        result = division(num1, num2)
 
-    # Vérifier si le résultat est un entier
-    if isinstance(resultat, float) and resultat.is_integer():
-        resultat = int(resultat)
+    # Check if the result is an integer
+    if isinstance(result, float) and result.is_integer():
+        result = int(result)
 
-    print(f"Résultat : {resultat}")
+    print(f"Result: {result}")
 
-<<<<<<< HEAD
-=======
     """
-    Ajout calcul historique et enregistrement log
+    Add calculation to history and save log
     """
 
-    # Ajouter le calcul à l'historique
->>>>>>> c5b4272b51e7bc5c7b465804840ff22c67fb0b8e
-    historique.append({
+    # Add the calculation to the history
+    history.append({
         'num1': num1,
-        'operation': operateur,
+        'operation': operator,
         'num2': num2,
-        'resultat': resultat
+        'result': result
     })
 
-    enregistrer_historique_log(historique)
+    save_history_log(history)
 
-<<<<<<< HEAD
-    choix = input("\nVoulez-vous effectuer un autre calcul ? (oui/non) : ").lower().strip()
-=======
     """
-    Boucles pour multicalculs
+    Loops for multiple calculations
     """
 
-    # Boucle pour plusieurs calculs
-    choix = input("\nVoulez-vous effectuer un autre calcul ? (oui/non) : ").lower()
->>>>>>> c5b4272b51e7bc5c7b465804840ff22c67fb0b8e
-    if choix not in ["oui", "o"]:
-        print("Au revoir !")
+    # Loop for multiple calculations
+    choice = input("\nDo you want to perform another calculation? (yes/no): ").lower()
+    if choice not in ["yes", "y"]:
+        print("Goodbye!")
         break
 
 
-# Appel de la fonction pour afficher l'historique log
-lire_historique_log()
+# Call the function to display the history log
+read_history_log()

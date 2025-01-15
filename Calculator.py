@@ -12,10 +12,11 @@ def choix(flag):
             ope = int(input("Choisissez un opérateur : \n 1 : + \n 2 : - \n 3 : x \n 4 : / \n 5 : % \n 6 : puissance \n 7 : racine \n 8 : div. euclidienne \n"))
         except ValueError:
             print("Rentrez un nombre entier s'il vous plait")
-        if ope < 0 or ope > 8:
-            print("Choix non valide")
-        else :
-            flag = 1
+        else: 
+            if ope < 0 or ope > 8:
+                print("Choix non valide")
+            else :
+                flag = 1
 
     flag2 = 0
     #if operator is square root

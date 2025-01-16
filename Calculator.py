@@ -68,25 +68,25 @@ def calculator_menu():
             while True:
                 # Choice between int or float number
                 int_and_float = str(input(
-                    "Voulez vous calculer des nombres entier ou à virgule ? (INt ou FLOAT) ")).upper()
+                    "Would you like to calculate with integers or decimal numbers? (INt ou FLOAT) ")).upper()
                 if int_and_float != "INT" and int_and_float != "FLOAT" and int_and_float != "I" and int_and_float != "F":
-                    print("Rentrez INT ou FLOAT")
+                    print("Enter INT ou FLOAT")
                 else:
                     break
             if int_and_float == "INT" or int_and_float == "I":
                 try:
                     # fisrt number to calculate
-                    nb1 = int(input("Rentrez votre 1er nombre : "))
+                    nb1 = int(input("Enter your first number : "))
                 except ValueError:
-                    print("Rentrez un nombre entier s'il vous plait")
+                    print("Enter an integer, please.")
                 nb2, ope, flag = choix(flag, int_and_float)
                 calc(nb1, nb2, ope, result, flag3, flag, int_and_float)
             elif int_and_float == "FLOAT" or int_and_float == "F":
                 try:
-                    nb1 = float(input("Rentrez votre 1er nombre : "))
+                    nb1 = float(input("Enter your first number : "))
                 except ValueError:
                     print(
-                        "Rentrez un nombre flottant s'il vous plait (avec un point et non une virgule)")
+                        "Enter a floating-point number, please (using a dot, not a comma)")
                 nb2, ope, flag = choix(flag, int_and_float)
                 calc(nb1, nb2, ope, result, flag3, flag, int_and_float)
 
@@ -99,17 +99,17 @@ def calculator_menu():
             continue
 
 
-def choix(flag, int_and_float):
+def operator(flag, int_and_float):
     # choice operator
     while flag == 0:
         try:
             ope = int(input(
-                "Choisissez un opérateur : \n 1 : + \n 2 : - \n 3 : x \n 4 : / \n 5 : % \n 6 : puissance \n 7 : racine \n 8 : div. euclidienne \n"))
+                "Choose an operator : \n 1 : + \n 2 : - \n 3 : x \n 4 : / \n 5 : % \n 6 : power \n 7 : root \n 8 : Euclidien div.  \n"))
         except ValueError:
-            print("Rentrez un nombre entier s'il vous plait")
+            print("Enter an integer, please.")
         else:
             if ope < 0 or ope > 8:
-                print("Choix non valide")
+                print("Invalid choice")
             else:
                 flag = 1
 
@@ -119,36 +119,36 @@ def choix(flag, int_and_float):
         if int_and_float == "INT" or int_and_float == "I":
             while flag2 == 0:
                 try:
-                    nb2 = int(input("Rentrez votre 2eme nombre : "))
+                    nb2 = int(input("Enter your second number: "))
                 except ValueError:
-                    print("Rentrez un nombre entier s'il vous plait")
+                    print("Enter an integer, please.")
                 if nb2 == 0 and (ope == 4 or ope == 5 or ope == 8):
-                    print("Ce calcule est impossible avec 0 !")
+                    print("This calculation is impossible with 0. !")
                 else:
                     flag2 = 1
         elif int_and_float == "FLOAT" or int_and_float == "F":
             while flag2 == 0:
                 try:
-                    nb2 = float(input("Rentrez votre 2eme nombre : "))
+                    nb2 = float(input("Enter your second number : "))
                 except ValueError:
-                    print("Rentrez un nombre flottant s'il vous plait")
+                    print("Please enter a floating-point number.")
                 if nb2 == 0 and (ope == 4 or ope == 5 or ope == 8):
-                    print("Ce calcule est impossible avec 0 !")
+                    print("This calculation is impossible with 0. !")
                 else:
                     flag2 = 1
     else:
         nb2 = 0
 
     flag = 0
-    liste = (nb2, ope, flag)  # tuple with number2, the operator and switch
-    return liste
+    list = (nb2, ope, flag)  # tuple with number2, the operator and switch
+    return list
 
 
 result = 0
 flag3 = 0
 
 
-# fonction calculator with choise to continue or not
+# function calculator with choice to continue or not
 def calc(nb1, nb2, ope, result, flag3, flag, int_and_float):
     if flag3 == 0:  # if it's the first calculation
         if ope == 1:
@@ -177,7 +177,7 @@ def calc(nb1, nb2, ope, result, flag3, flag, int_and_float):
             save_history_log(nb1, nb2, ope, result)
         if ope == 7:
             result = nb1 ** 0.5
-            print("Racine de ", nb1, "=", result)
+            print("Square root of ", nb1, "=", result)
             save_history_log(nb1, nb2, ope, result)
         if ope == 8:
             result = nb1 // nb2
@@ -213,28 +213,28 @@ def calc(nb1, nb2, ope, result, flag3, flag, int_and_float):
             save_history_log(result_prev, nb2, ope, result)
         if ope == 7:
             result = result ** 0.5
-            print("Racine de ", result_prev, "=", result)
+            print("Square root of ", result_prev, "=", result)
             save_history_log(result_prev, nb2, ope, result)
         if ope == 8:
             result = result // nb2
             print(result_prev, "//", nb2, "=", result)
             save_history_log(result_prev, nb2, ope, result)
 
-    # choise to continue the calculation or not
+    # choice to continue the calculation or not
     while True:
         try:
-            choise = str(input("Continuer le calcule ? (Y ou N) ")).upper()
+            choice = str(input("Continue the calculation? (Y ou N) ")).upper()
         except ValueError:
-            print("Valeur non valide")
-        if choise != "Y" and choise != "N":
-            print("Rentrez une valeur valide (Y ou N)")
+            print("Invalid value")
+        if choice != "Y" and choice != "N":
+            print("Enter a valid value (Y ou N)")
         else:
             break
 
-    if choise == "Y":
-        nb2, ope, flag = choix(flag, int_and_float)
+    if choice == "Y":
+        nb2, ope, flag = operator(flag, int_and_float)
         calc(nb1, nb2, ope, result, flag3, flag, int_and_float)
-    elif choise == "N":
+    elif choice == "N":
         return 0
 
 

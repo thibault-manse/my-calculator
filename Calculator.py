@@ -33,53 +33,42 @@ flag2 = 0
 
 def calcul_long(operateur, a, b):
     
-    if operateur == "+":
-        return addition(a, b)
-    elif operateur == "-":
-        return soustraction(a, b)
-    elif operateur == "*":
-        return multiplication(a, b)
-    elif operateur == "/":
-        return division(a, b)
-    else:
-        raise ValueError(f"Opérateur inconnu : {operateur}")
-        
-        
- calcc = float(input("Entrez le premier nombre : "))
+
+try:
+    calcc = float(input("Entrez le premier nombre : "))
     operations = [calcc]  
 
     while True:
         
         calcul = input("T'as le choix entre ces calculs : '+', '-', '*', '/' ou tape 'fin' si t'en peux plus : ")
         if calcul == "fin":
-            
+            # Résolution des calculs en respectant les priorités
             while len(operations) > 1:
-                
-                idx = next((i for i in range(1, len(operations), 2) if isinstance(operations[i], str) and operations[i] in "*/"), None)
+                # Recherche des opérations prioritaires 
+                idx = next((i for i in range(1, len(operations), 2) if operations[i] in "*/"), None)
                 if idx is None:  
                     idx = 1  
-
                 
+                # Applique l'opération
                 res = calcul_long(operations[idx], operations[idx - 1], operations[idx + 1])
-            
+                # Remplace les éléments par le résultat
                 operations[idx - 1:idx + 2] = [res]
 
-            
             print(f"Et le résultat est : {operations[0]}")
             break
 
-        
         if calcul in {"+", "-", "*", "/"}:
-            suite = float(input("Entre ton nombre : "))
+            following = float(input("Entre ton nombre : "))
             operations.append(calcul)  
-            operations.append(suite)  
+            operations.append(following)  
             print(f"État actuel : {operations}")
         else:
             print("J'ai pas été clair débile, apprends à lire.")
+
 except ValueError:
-    print("Erreur: entre des nombres  et opérateur valides.")
+    print("Erreur: entre des nombres et des opérateurs valides.")
 except ZeroDivisionError:
-    print("Impossible : Division par zéro détectée.")
+    print("Erreur : Division par zéro détectée.")
 
 def calc(nb1, nb2, ope, result, flag2, flag): #fonction calculator with choise to continue or not
     if flag2 == 0: #if it's the first calculation

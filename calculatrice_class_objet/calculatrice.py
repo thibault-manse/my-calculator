@@ -114,6 +114,22 @@ class Calculatrice:
         else:
             print("Option invalide. Veuillez choisir 1, 2 ou 3.")
             return True
+        
+    def continuer_calcul(self):
+        continuer = input("\nVoulez-vous effectuer un tout nouveau calcul ? (o/n) : ").lower()
+        if continuer =="o" or continuer == "oui":
+            return True
+        return False
+    
+    def quitter_calculatrice(self):
+        """
+        demande à l'user s'il veut quitter la calculette
+        """
+        quitter = input("Voulez-vous quittez la calculatrice ? (o/n ) :").lower()
+        if quitter == "o" or quitter == "oui":
+            print("Au revoir !")
+            return True
+        return False
 
     def run(self):
         """
@@ -121,12 +137,12 @@ class Calculatrice:
         """
         mode_calcul = False  # indique mode calcul en continu
         # indique si l'utilisateur veut continuer avec un nouveau calcul
-        continuer_calcul = False
+        # continuer_calcul = False
         calculette_bool = True  # indique si l'utilisateur veut continuer avec la calculette
         
 
         while calculette_bool:
-            if not mode_calcul and not continuer_calcul:
+            if not mode_calcul :
                 
                 
                 print("\n=== CALCULATRICE ===")
@@ -147,8 +163,12 @@ class Calculatrice:
 
             print(f"Resultat: {self.resultat}")
 
+            #continutation
+            if not self.continuer_calcul():
+                calculette_bool = self.quitter_calculatrice()
+
             #continuation
-            continuer_calcul, calculette_bool, mode_calcul = self.gestion_continuation()
+            # continuer_calcul, calculette_bool, mode_calcul = self.gestion_continuation()
     
     def afficher_menu_principal(self):
         """
@@ -200,10 +220,4 @@ class Calculatrice:
                 
 
             
-            #     quitter = input(
-            #         "Voulez-vous quitter la calculatrice ? (o/n) : ").lower()
-            #     if quitter in ["o", "oui"]:
-            #         print("Au revoir !")
-            #         calculette_bool = False
-            #     else:
-            #         mode_calcul = True
+          

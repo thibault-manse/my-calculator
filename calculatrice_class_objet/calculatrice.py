@@ -121,63 +121,89 @@ class Calculatrice:
         """
         mode_calcul = False  # indique mode calcul en continu
         # indique si l'utilisateur veut continuer avec un nouveau calcul
-        continuer_calcul = True
+        continuer_calcul = False
         calculette_bool = True  # indique si l'utilisateur veut continuer avec la calculette
+        
 
         while calculette_bool:
+            if not mode_calcul and not continuer_calcul:
+                
+                
+                print("\n=== CALCULATRICE ===")
+                continuer_menu = self.menu_historique()
+                if continuer_menu:
+                    continue
+
             if not mode_calcul:
-                if not continuer_calcul:
-                    print("\n=== CALCULATRICE ===")
-                    continuer_menu = self.menu_historique()
-                    if continuer_menu:
-                        continue
-
-                else:
-
-                    # Réutilisation du dernier résultat
-                    if self.resultat is not None:
-                        utiliser_resultat = input(f"Votre dernier résultat était {
-
-                            self.resultat}. Voulez-vous l'utiliser ? (o/n) : ").lower()
-                        if utiliser_resultat == "o":
-                            num1 = self.resultat
-                        else:
-                            num1 = self.demander_nombre(
-                                "Entrez le premier nombre : ")
-                    else:
-                        num1 = self.demander_nombre(
-                            "Entrez le premier nombre : ")
+                num1 = self.obtenir_premier_nombre()
             else:
-                num1 = self.resultat
+                num2 = self.resultat
 
             operateur = self.demander_operation()
-            num2 = self.demander_nombre("Entrez le second nombre : ")
+            num2 = self.demander_nombre("Entrer le second nombre : ")
 
-            # Conversion si nécessaire
-            num1 = self.convertir_si_entier(num1)
-            num2 = self.convertir_si_entier(num2)
+            #calcul du resultat
+            self.resultat = self.effectuer_calcul_et_ajouter_historique(num1, num2, operateur)
 
-            # Calcul du résultat
-            self.resultat = self.executer_calcul(num1, num2, operateur)
-            self.resultat = self.convertir_si_entier(self.resultat)
+            print(f"Resultat: {self.resultat}")
 
-            print(f"Résultat : {self.resultat}")
+            #continuation
+            continuer_calcul, calculette_bool, mode_calcul = self.gestion_continuation()
+    
+    def afficher_menu_principal(self):
+        """
+        afficher le menu principal
+        """
+        print("\n=== CALCULATRICE ===")
 
-            # Ajout à l'historique
-            self.ajouter_historique(num1, operateur, num2, self.resultat)
-            self.historique_manager.enregistrer(self.historique)
-
-            # Demande de continuer ou quitter complètement
-            continuer = input(
-                "\nVoulez-vous effectuer un tout nouveau calcul ? (o/n) : ").lower()
-            if continuer == "oui" or continuer == "o":
-                continuer_calcul = True
+    
+    def obtenir_premier_nombre(self):
+        if self.resultat is not None:
+            utiliser_resultat = input(f"Votre dernier résultat était {self.resultat}. Voulez-vous lutiliser ? (o/n).").lower()
+            if utiliser_resultat == "o":
+                return self.resultat
             else:
-                continuer_calcul = False
-                quitter = input(
-                    "Voulez-vous quitter la calculatrice ? (o/n) : ").lower()
-                if quitter in ["o", "oui"]:
-                    print("Au revoir !")
-                    calculette_bool = False
-                else:
-                    mode_calcul = True
+                return self.demander_nombre("Entrer le premier nombre :")
+        return self.demander_nombre("Entrer le premier nombre :")
+    
+    
+    def effectuer_calcul_et_ajouter_historique(self, num1, num2, operateur):
+        """
+        effectuer calcul, ajouter résultat à l'historique et le retourner
+        """
+        num1 = self.convertir_si_entier(num1)
+        num2= self.convertir_si_entier(num2)
+        resultat = self.executer_calcul(num1, num2, operateur)
+        resultat = self.convertir_si_entier(resultat)
+
+        #ajout à l'historique
+        self.ajouter_historique(num1, operateur, num2, resultat)
+        self.historique_manager.enregistrer(self.historique)
+        return resultat
+    
+    def gestion_continuation(self):
+        """
+        gere choix utiisateurs pour continuer ou quitter la calculette
+        retourne les calculs
+        """
+        continuer_calcul = input(f"\nVoulez-vous effectuer un tout nouveau calcul ? (o/n)")
+        if not continuer_calcul:
+            quitter = input("Voulez-vous quitter la calculatrice ? (o/n)")
+            if quitter == "oui" or quitter == "o":
+                print("Au revoir !")
+            return False, False, False
+
+            
+        return continuer_calcul, True, not continuer_calcul
+            
+
+                
+
+            
+            #     quitter = input(
+            #         "Voulez-vous quitter la calculatrice ? (o/n) : ").lower()
+            #     if quitter in ["o", "oui"]:
+            #         print("Au revoir !")
+            #         calculette_bool = False
+            #     else:
+            #         mode_calcul = True

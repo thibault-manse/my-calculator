@@ -62,18 +62,18 @@ def calculator_menu():
         elif choice == '3': # Calculate
             while True:
                 int_and_float = str(input("Voulez vous calculer des nombres entier ou à virgule ? (INt ou FLOAT) ")).upper() #Choice between int or float number
-                if int_and_float != "INT" and int_and_float != "FLOAT":
+                if int_and_float != "INT" and int_and_float != "FLOAT" and int_and_float != "I" and int_and_float!= "F":
                     print("Rentrez INT ou FLOAT")
                 else:
                     break
-            if int_and_float == "INT":
+            if int_and_float == "INT" or int_and_float == "I":
                 try :
                     nb1 = int(input("Rentrez votre 1er nombre : ")) #fisrt number to calculate
                 except ValueError:
                     print("Rentrez un nombre entier s'il vous plait")
                 nb2, ope, flag = choix(flag, int_and_float)
                 calc(nb1, nb2, ope, result, flag3, flag, int_and_float)
-            elif int_and_float == "FLOAT":
+            elif int_and_float == "FLOAT" or int_and_float == "F":
                 try :
                     nb1 = float(input("Rentrez votre 1er nombre : "))
                 except ValueError:
@@ -105,7 +105,7 @@ def choix(flag, int_and_float):
     flag2 = 0
     #if operator is square root + int and float value
     if ope != 7:
-        if int_and_float == "INT":
+        if int_and_float == "INT" or int_and_float == "I":
             while flag2 == 0:
                 try :
                     nb2 = int(input("Rentrez votre 2eme nombre : "))
@@ -115,7 +115,7 @@ def choix(flag, int_and_float):
                     print("Ce calcule est impossible avec 0 !")
                 else :
                     flag2 = 1
-        elif int_and_float == "FLOAT":
+        elif int_and_float == "FLOAT" or int_and_float == "F":
             while flag2 == 0:
                 try :
                     nb2 = float(input("Rentrez votre 2eme nombre : "))

@@ -52,7 +52,7 @@ def calculator_menu():
         print("4. Calculate")
         print("5. Exit")
 
-        choice = input("Choose an option (1-4): ")
+        choice = input("Choose an option (1-5): ")
 
         if choice == '5':
             print("Thank you for using the calculator! Bye.")

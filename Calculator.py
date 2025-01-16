@@ -32,6 +32,16 @@ result = 0
 flag2 = 0
 
 def calcul_long(operateur, a, b):
+     if operateur == "+":
+        return addition(a, b)
+    elif operateur == "-":
+        return soustraction(a, b)
+    elif operateur == "*":
+        return multiplication(a, b)
+    elif operateur == "/":
+        return division(a, b)
+    else:
+        raise ValueError(f"Opérateur inconnu : {operateur}")
     
 
 try:

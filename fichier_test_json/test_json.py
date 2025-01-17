@@ -62,7 +62,7 @@ def clear_history_log():
 
 
 """
-function calculatorte
+function calculator
 """
 
 

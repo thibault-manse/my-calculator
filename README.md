@@ -1,27 +1,59 @@
 # my-calculator
+# Calculatrice de Menu
 
-Introduction
-Cette application est une calculatrice avec plusieurs fonctionnalités avancées, comme la gestion d'historique, la possibilité de réaliser des calculs successifs, et une interface de navigation claire. Le travail a été divisé entre les membres de l’équipe, chacun se concentrant sur des fonctionnalités spécifiques pour apporter sa contribution.
+## Installation
 
-Fonctionnalités
-Calculatrice de base : Permet de réaliser des opérations simples comme l'addition, la soustraction, la multiplication, et la division.
-Gestion des erreurs : La fonction d’erreur détecte les erreurs de calcul et assure une expérience utilisateur fluide en cas de problème.
-Historique des calculs : Permet de garder une trace des calculs précédents grâce à l’utilisation de la bibliothèque JSON.
-Calculs successifs : Permet de faire plusieurs calculs à la suite sans avoir besoin de redémarrer l'application.
+Pour utiliser la Calculatrice de Menu, vous devez avoir Python installé sur votre machine. Vous pouvez télécharger la dernière version de Python depuis le site officiel : [https://www.python.org/downloads/](https://www.python.org/downloads/).
 
-Menu interactif : Une interface de menu qui permet à l’utilisateur de naviguer facilement entre les différentes fonctionnalités, ressemblant à un sommaire.
-Tâches de l’équipe
-Thibault
+Une fois Python installé, vous pouvez télécharger le fichier `menuCalculator.py` et le sauvegarder à l'emplacement de votre choix.
 
-Calculatrice de base : Développement de la fonctionnalité principale de la calculatrice, incluant l’addition, la soustraction, la multiplication et la division.
+## Utilisation
 
-Gestion des erreurs : Implémentation de la fonction qui détecte les erreurs de calcul (par exemple, division par zéro ou entrée incorrecte).
+Pour exécuter la Calculatrice de Menu, ouvrez un terminal ou une invite de commande, naviguez jusqu'au répertoire où vous avez enregistré le fichier `menuCalculator.py`, puis exécutez la commande suivante :
 
-Florence
-Historique des calculs : Développement de la fonctionnalité historique en utilisant la bibliothèque JSON. Cela permet à l'utilisateur de retrouver et de revoir les calculs précédents.
-Joseph
-Calculs successifs : Développement de la fonctionnalité permettant de réaliser plusieurs calculs à la suite, sans réinitialiser l’application. Cela améliore l’expérience utilisateur en facilitant l’enchaînement des opérations.
-Vanessa
-Création du menu interactif : Conception d’un menu de navigation simple et intuitif, ressemblant à un sommaire. Le menu permet à l’utilisateur de sélectionner différentes fonctionnalités de manière fluide.
-Gestion du projet
-Nous avons utilisé GitHub pour gérer le projet, créant des branches spécifiques pour chaque fonctionnalité. Chaque branche correspondait à un aspect particulier du projet, et une fois que chaque fonctionnalité a été terminée, elle a été fusionnée avec la branche principale.
+```
+python menuCalculator.py
+```
+
+### Cela démarrera le menu de la calculatrice, où vous pourrez choisir parmi les options suivantes :
+
+1. Effacer l'historique
+2. Lire l'historique
+3. Calculer
+4. Quitter
+
+### La calculatrice prend en charge les opérations suivantes :
+
+- Addition (+)
+- Soustraction (-)
+- Multiplication (x)
+- Division (/)
+- Modulo (%)
+- Puissance (^)
+- Racine carrée (√)
+- Division euclidienne (//)
+
+Vous pouvez choisir de travailler avec des entiers ou des nombres décimaux.
+
+## API
+
+### Le fichier `menuCalculator.py` fournit les fonctions suivantes :
+
+- `save_history_log(nb1, nb2, ope, result)`: Sauvegarde l'historique des calculs dans un fichier JSON.
+- `read_history_log()`: Lit l'historique des calculs depuis le fichier JSON et l'affiche.
+- `clear_history_log()`: Supprime le fichier d'historique des calculs.
+- `calculator_menu()`: Exécute le menu principal de la calculatrice.
+- `operator(flag, int_and_float)`: Gère le choix de l'opérateur de l'utilisateur et le deuxième opérande.
+- `calc(nb1, nb2, ope, result, flag3, flag, int_and_float)`: Effectue le calcul et sauvegarde le résultat.
+
+## Contribution
+
+Si vous trouvez des problèmes ou avez des suggestions d'améliorations, n'hésitez pas à ouvrir une nouvelle issue ou à soumettre une pull request sur le dépôt GitHub du projet.
+
+## Licence
+
+Ce projet est sous la licence [MIT License](LICENSE).
+
+## Tests
+
+Pour tester la Calculatrice de Menu, vous pouvez exécuter le fichier `menuCalculator.py` et essayer les différentes fonctionnalités, telles que la réalisation de calculs mathématique, la sauvegarde et la lecture de l'historique, ainsi que l'effacement de l'historique grace à Json.

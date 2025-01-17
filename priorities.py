@@ -1,12 +1,12 @@
-def calcul(expression):
-    def priorite_operateur(op):
+def calculate(expression):
+    def operator_priority(op):
         if op in ('+', '-'):
             return 1
         if op in ('*', '/'):
             return 2
         return 0
 
-    def appliquer_operation(a, b, op):
+    def apply_operation(a, b, op):
         if op == '+':
             return a + b
         if op == '-':
@@ -16,9 +16,11 @@ def calcul(expression):
         if op == '/':
             return a / b
 
-    '''La méthode .isdigit() en py, est utilisé pour vérifier si tout les caractère d'une chaine sont bien des chiffres. Elle retourne (true) si tous les caractères de la chaine sont des chiffres et qu'il y a au moins un caractère, sinon dans le cas contraire elle retourne (false).'''
+    '''The .isdigit() method in Python is used to check if all characters in a string are digits. 
+    It returns (True) if all characters in the string are digits and there is at least one character, 
+    otherwise, it returns (False).'''
 
-    def analyser_expression(expression):
+    def analyze_expression(expression):
         values = []
         ops = []
         i = 0
@@ -41,44 +43,45 @@ def calcul(expression):
                     val2 = values.pop()
                     val1 = values.pop()
                     op = ops.pop()
-                    values.append(appliquer_operation(val1, val2, op))
+                    values.append(apply_operation(val1, val2, op))
                 ops.pop()
             else:
-                while (len(ops) != 0 and priorite_operateur(ops[-1]) >= priorite_operateur(expression[i])):
+                while (len(ops) != 0 and operator_priority(ops[-1]) >= operator_priority(expression[i])):
                     val2 = values.pop()
                     val1 = values.pop()
                     op = ops.pop()
-                    values.append(appliquer_operation(val1, val2, op))
+                    values.append(apply_operation(val1, val2, op))
                 ops.append(expression[i])
             i += 1
 
-        ''' .pop c'est une méthode utilisé en Py, c'est une fonction de la classe list qui permet de supprimer un élément d'une liste et de renvoyer la valeur de l'élément supprimé. Elle peut prendre en compteun argument optionnel, qui est l'index de l'élément à supprimer.'''
+        '''.pop is a method used in py, it's a function of the list class that removes an element from a list 
+        and returns the value of the removed element. It can take an optional argument, which is the index of the element to remove.'''
 
         while len(ops) != 0:
             val2 = values.pop()
             val1 = values.pop()
             op = ops.pop()
-            values.append(appliquer_operation(val1, val2, op))
+            values.append(apply_operation(val1, val2, op))
 
         return values[-1]
 
-    return analyser_expression(expression)
+    return analyze_expression(expression)
 
 def main():
-    print("Bienvenue dans notre super calculatrice !")
-    print("Entrez une expression mathématique (ou appuyez sur Q pour quitter) :")
+    print("Welcome to our super calculator!")
+    print("Enter a mathematical expression (or press Q to quit):")
 
     while True:
         expression = input("> ")
         if expression.lower() == 'q':
             break
         try:
-            resultat = calcul(expression)
-            print(f"Le résultat de l'expression '{expression}' est : {resultat}")
+            result = calculate(expression)
+            print(f"The result of the expression '{expression}' is: {result}")
         except Exception as e:
-            print(f"Erreur lors du calcul : {e}")
+            print(f"Error during calculation: {e}")
 
-    print("Merci d'avoir calculé avec nous ! On espère que vos chiffres ont eu la pêche. À bientôt !")
+    print("Thank you for calculating with us! We hope your numbers were full of energy. See you soon!")
 
 if __name__ == "__main__":
     main()

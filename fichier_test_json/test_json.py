@@ -1,46 +1,52 @@
+import json
+import os
+
+# Fonction pour sauvegarder l'historique dans un fichier JSON
 def save_history_log(nb1, nb2, ope, result):
-    with open('calculation_history.log', 'a') as log_file:
-        if ope == 1:
-            log_file.write(f"{nb1} + {nb2} = {result}\n")
-        if ope == 2:
-            log_file.write(f"{nb1} - {nb2} = {result}\n")
-        if ope == 3:
-            log_file.write(f"{nb1} x {nb2} = {result}\n")
-        if ope == 4:
-            log_file.write(f"{nb1} / {nb2} = {result}\n")
-        if ope == 5:
-            log_file.write(f"{nb1} % {nb2} = {result}\n")
-        if ope == 6:
-            log_file.write(f"{nb1} ^ {nb2} = {result}\n")
-        if ope == 7:
-            log_file.write(f"Racine de {nb1} = {result}\n")
-        if ope == 8:
-            log_file.write(f"{nb1} // {nb2} = {result}\n")
+    # Détermine l'opérateur sous forme de symbole
+    operators = {1: '+', 2: '-', 3: 'x', 4: '/', 5: '%', 6: '^', 7: '√', 8: '//'}
+    operator_symbol = operators.get(ope, '?')
 
-# Function to read the history from the log file
+    # Charger l'historique existant ou initialiser une liste vide
+    history = []
+    if os.path.exists('calculation_history.json'):
+        with open('calculation_history.json', 'r') as file:
+            history = json.load(file)
 
+    # Ajouter le nouveau calcul à l'historique
+    history.append({
+        "value1": nb1,
+        "operator": operator_symbol,
+        "value2": nb2 if nb2 != 0 or ope == 7 else None,  # Pas d'opérande 2 pour les racines
+        "result": result
+    })
 
+    # Sauvegarder dans le fichier JSON
+    with open('calculation_history.json', 'w') as file:
+        json.dump(history, file, indent=4)
+    print("Calcul sauvegardé dans l'historique.")
+
+# Fonction pour lire l'historique depuis le fichier JSON
 def read_history_log():
-    try:
-        with open('calculation_history.log', 'r') as log_file:
-            content = log_file.read()
-            print("\n=== Log File Content ===")
-            print(content)
-    except FileNotFoundError:
-        print("The Log file does not exist.")
-    except Exception as e:
-        print(f"Error reading the Log file: {e}")
+    if not os.path.exists('calculation_history.json'):
+        print("\nL'historique est vide.")
+        return
 
-# Function to clear the history from the log file
+    with open('calculation_history.json', 'r') as file:
+        history = json.load(file)
 
+    print("\n=== Historique des calculs ===")
+    for entry in history:
+        value2 = entry["value2"] if entry["value2"] is not None else ""
+        print(f"{entry['value1']} {entry['operator']} {value2} = {entry['result']}")
 
+# Fonction pour effacer l'historique du fichier JSON
 def clear_history_log():
-    try:
-        with open('calculation_history.log', 'w') as log_file:
-            pass  # Write nothing to clear the content
-        print("\nThe history has been successfully cleared.")
-    except Exception as e:
-        print(f"Error deleting the history: {e}")
+    if os.path.exists('calculation_history.json'):
+        os.remove('calculation_history.json')
+        print("\nL'historique a été effacé.")
+    else:
+        print("\nAucun historique à effacer.")
 
 
 def calculator_menu():

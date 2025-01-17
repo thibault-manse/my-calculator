@@ -22,7 +22,7 @@ def save_history_log(nb1, nb2, ope, result):
     # Add the new calculation to the history
     history.append({
         "value1": nb1,
-        "operator": operator_symbol,
+        "operator": operator_symbol, -t 0
         # Pas d'opérande 2 pour les racines
         "value2": nb2 if nb2 != 0 or ope == 7 else None,
         "result": result

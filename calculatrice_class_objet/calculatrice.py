@@ -82,6 +82,47 @@ class Calculatrice:
         elif operateur == "/":
             return self.division(num1, num2)
 
+    def evaluer_expression(self, expression):
+        """"
+        Evalue une expression mathématiqiue contenant des nbres et des opérateurs et des parenthèses
+        """
+        def calcul_simple(expression_part):
+            elements = expression_part.split()
+            while '*' in elements or '/' in elements:
+                for i, el in enumerate(elements):
+                    if el == "*":
+                        result = float(elements[i+1]) * float(elements[i-1]) = elements[:i-1] + [str(result)] + elements[i+2:]
+                        break
+                    elif el == "/":
+                        if float(elements[i+1]) == 0:
+                            return "Erreur: division par zéro"
+                        result = float(elements[i-1]) / float(elements[i+1])
+                        elements = elements[:i-1] + \
+                            [str(result)] + elements[i+2:]
+                        break
+            while '+' in elements or '-' in elements:
+                for i, el in enumerate(elements):
+                    if el == "+":
+                        result = float(elements[i-1]) + float(elements[i+1])
+                        elements = elements[:i-1] + \
+                            [str(result)] + elements[i+2:]
+                        break
+            return float(elements[0])
+
+        # resolution des parentheses
+        while "(" in expression:
+            start = expression.rfind("(")
+            end = expression.find(")", start)
+            if end == -1:
+                return "Erreur: parenthèses non fermées"
+            # evaluer l'expression entre les parenthèses
+            sous_resultat = calcul_simple(expression[start+1:end].strip())
+            # remplacer dans l'expression originale
+            expression = expression[:start] + \
+                str(sous_resultat) + expression[end+1:]
+
+        return calcul_simple(expression)
+
     def ajouter_historique(self, num1, operateur, num2, resultat):
         """
         Ajoute le calcul effectué et son résultat à l'historique.
@@ -114,18 +155,20 @@ class Calculatrice:
         else:
             print("Option invalide. Veuillez choisir 1, 2 ou 3.")
             return True
-        
+
     def continuer_calcul(self):
-        continuer = input("\nVoulez-vous effectuer un tout nouveau calcul ? (o/n) : ").lower()
-        if continuer =="o" or continuer == "oui":
+        continuer = input(
+            "\nVoulez-vous effectuer un tout nouveau calcul ? (o/n) : ").lower()
+        if continuer == "o" or continuer == "oui":
             return True
         return False
-    
+
     def quitter_calculatrice(self):
         """
         demande à l'user s'il veut quitter la calculette
         """
-        quitter = input("Voulez-vous quittez la calculatrice ? (o/n ) :").lower()
+        quitter = input(
+            "Voulez-vous quittez la calculatrice ? (o/n ) :").lower()
         if quitter == "o" or quitter == "oui":
             print("Au revoir !")
             return True
@@ -139,85 +182,91 @@ class Calculatrice:
         # indique si l'utilisateur veut continuer avec un nouveau calcul
         # continuer_calcul = False
         calculette_bool = True  # indique si l'utilisateur veut continuer avec la calculette
-        
 
         while calculette_bool:
-            if not mode_calcul :
-                
-                
+            if not mode_calcul:
+
                 print("\n=== CALCULATRICE ===")
+                choix = input(
+                    "Voulez-vous entrer une expression mathématique ? (o/n) : ").lower()
+                if choix == "o":
+                    expression = input("Entrez l'expression mathématique : ")
+                    try:
+                        resultat = sel.evaluer_expression(expression)
+                        print(f"Resultat: {resultat}")
+                        self.historique.append(
+                            {'expression': expression, 'resultat': resultat})
+                    except Exception as e:
+                        print(f"Erreur lors de l'évalution : {e}")
+                else:
+                    if self.quitter_calculatrice():
+                        break
                 continuer_menu = self.menu_historique()
                 if continuer_menu:
                     continue
 
-            if not mode_calcul:
-                num1 = self.obtenir_premier_nombre()
-            else:
-                num2 = self.resultat
+            # if not mode_calcul:
+            #     num1 = self.obtenir_premier_nombre()
+            # else:
+            #     num2 = self.resultat
 
-            operateur = self.demander_operation()
-            num2 = self.demander_nombre("Entrer le second nombre : ")
+            # operateur = self.demander_operation()
+            # num2 = self.demander_nombre("Entrer le second nombre : ")
 
-            #calcul du resultat
-            self.resultat = self.effectuer_calcul_et_ajouter_historique(num1, num2, operateur)
+            # # calcul du resultat
+            # self.resultat = self.effectuer_calcul_et_ajouter_historique(
+            #     num1, num2, operateur)
 
-            print(f"Resultat: {self.resultat}")
+            # print(f"Resultat: {self.resultat}")
 
-            #continutation
-            if not self.continuer_calcul():
-                calculette_bool = self.quitter_calculatrice()
+            # # continutation
+            # if not self.continuer_calcul():
+            #     calculette_bool = self.quitter_calculatrice()
 
-            #continuation
+            # continuation
             # continuer_calcul, calculette_bool, mode_calcul = self.gestion_continuation()
-    
+
     def afficher_menu_principal(self):
         """
         afficher le menu principal
         """
         print("\n=== CALCULATRICE ===")
 
-    
     def obtenir_premier_nombre(self):
         if self.resultat is not None:
-            utiliser_resultat = input(f"Votre dernier résultat était {self.resultat}. Voulez-vous lutiliser ? (o/n).").lower()
+            utiliser_resultat = input(f"Votre dernier résultat était {
+                                      self.resultat}. Voulez-vous lutiliser ? (o/n).").lower()
             if utiliser_resultat == "o":
                 return self.resultat
             else:
                 return self.demander_nombre("Entrer le premier nombre :")
         return self.demander_nombre("Entrer le premier nombre :")
-    
-    
+
     def effectuer_calcul_et_ajouter_historique(self, num1, num2, operateur):
         """
         effectuer calcul, ajouter résultat à l'historique et le retourner
         """
         num1 = self.convertir_si_entier(num1)
-        num2= self.convertir_si_entier(num2)
+        num2 = self.convertir_si_entier(num2)
         resultat = self.executer_calcul(num1, num2, operateur)
         resultat = self.convertir_si_entier(resultat)
 
-        #ajout à l'historique
+        # ajout à l'historique
         self.ajouter_historique(num1, operateur, num2, resultat)
         self.historique_manager.enregistrer(self.historique)
         return resultat
-    
+
     def gestion_continuation(self):
         """
         gere choix utiisateurs pour continuer ou quitter la calculette
         retourne les calculs
         """
-        continuer_calcul = input(f"\nVoulez-vous effectuer un tout nouveau calcul ? (o/n)")
+        continuer_calcul = input(
+            f"\nVoulez-vous effectuer un tout nouveau calcul ? (o/n)")
         if not continuer_calcul:
             quitter = input("Voulez-vous quitter la calculatrice ? (o/n)")
             if quitter == "oui" or quitter == "o":
                 print("Au revoir !")
             return False, False, False
 
-            
         return continuer_calcul, True, not continuer_calcul
-            
-
-                
-
-            
-          

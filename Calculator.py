@@ -149,6 +149,7 @@ def calc(nb1, nb2, ope, result, flag2, flag): #fonction calculator with choise t
         calc(nb1, nb2, ope, result, flag2, flag)
     elif choise == "N" :
         return 0
-    
+
 nb2, ope, flag = choix(flag)
-calc(nb1, nb2, ope, result, flag2, flag)
+calcul_long(ope, nb1, nb2)   
+#calc(nb1, nb2, ope, result, flag2, flag)

@@ -1,52 +1,69 @@
 import json
 import os
 
-# Fonction pour sauvegarder l'historique dans un fichier JSON
+"""
+function json history calculator
+"""
+# Function to save the history in a JSON file
+
+
 def save_history_log(nb1, nb2, ope, result):
-    # Détermine l'opérateur sous forme de symbole
-    operators = {1: '+', 2: '-', 3: 'x', 4: '/', 5: '%', 6: '^', 7: '√', 8: '//'}
+    # Determines the operator as a symbol
+    operators = {1: '+', 2: '-', 3: 'x',
+                 4: '/', 5: '%', 6: '^', 7: '√', 8: '//'}
     operator_symbol = operators.get(ope, '?')
 
-    # Charger l'historique existant ou initialiser une liste vide
+    # Load the existing history or initialize an empty list
     history = []
     if os.path.exists('calculation_history.json'):
         with open('calculation_history.json', 'r') as file:
             history = json.load(file)
 
-    # Ajouter le nouveau calcul à l'historique
+    # Add the new calculation to the history
     history.append({
         "value1": nb1,
         "operator": operator_symbol,
-        "value2": nb2 if nb2 != 0 or ope == 7 else None,  # Pas d'opérande 2 pour les racines
+        # Pas d'opérande 2 pour les racines
+        "value2": nb2 if nb2 != 0 or ope == 7 else None,
         "result": result
     })
 
-    # Sauvegarder dans le fichier JSON
+    # Save to the JSON file
     with open('calculation_history.json', 'w') as file:
         json.dump(history, file, indent=4)
-    print("Calcul sauvegardé dans l'historique.")
+    print("Calculation saved in history.")
 
-# Fonction pour lire l'historique depuis le fichier JSON
+# Function to read the history from the JSON fileF
+
+
 def read_history_log():
     if not os.path.exists('calculation_history.json'):
-        print("\nL'historique est vide.")
+        print("\nHistoric is empty.")
         return
 
     with open('calculation_history.json', 'r') as file:
         history = json.load(file)
 
-    print("\n=== Historique des calculs ===")
+    print("\n=== Calculation History ===")
     for entry in history:
         value2 = entry["value2"] if entry["value2"] is not None else ""
-        print(f"{entry['value1']} {entry['operator']} {value2} = {entry['result']}")
+        print(f"{entry['value1']} {entry['operator']} {
+              value2} = {entry['result']}")
 
-# Fonction pour effacer l'historique du fichier JSON
+# Function to clear the history from the JSON file
+
+
 def clear_history_log():
     if os.path.exists('calculation_history.json'):
         os.remove('calculation_history.json')
-        print("\nL'historique a été effacé.")
+        print("\nThe historic is clear.")
     else:
-        print("\nAucun historique à effacer.")
+        print("\nNo historic to clear.")
+
+
+"""
+function calculatorte
+"""
 
 
 def calculator_menu():

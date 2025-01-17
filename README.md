@@ -1,4 +1,4 @@
-# my-calculator
+# My-calculator
 # Calculatrice de Menu
 
 ## Installation

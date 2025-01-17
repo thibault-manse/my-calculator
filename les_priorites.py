@@ -2,11 +2,11 @@ def calcul(expression):
     def priorite_operateur(op):
         if op in ('+', '-'):
             return 1
-        if op in ('*', '/', ):
+        if op in ('*', '/'):
             return 2
         return 0
 
-    def petite_libellule(a, b, op):
+    def appliquer_operation(a, b, op):
         if op == '+':
             return a + b
         if op == '-':
@@ -16,10 +16,9 @@ def calcul(expression):
         if op == '/':
             return a / b
 
-
     '''La méthode .isdigit() en py, est utilisé pour vérifier si tout les caractère d'une chaine sont bien des chiffres. Elle retourne (true) si tous les caractères de la chaine sont des chiffres et qu'il y a au moins un caractère, sinon dans le cas contraire elle retourne (false).'''
 
-    def soleil_expression(expression):
+    def analyser_expression(expression):
         values = []
         ops = []
         i = 0
@@ -42,14 +41,14 @@ def calcul(expression):
                     val2 = values.pop()
                     val1 = values.pop()
                     op = ops.pop()
-                    values.append(petite_libellule(val1, val2, op))
+                    values.append(appliquer_operation(val1, val2, op))
                 ops.pop()
             else:
                 while (len(ops) != 0 and priorite_operateur(ops[-1]) >= priorite_operateur(expression[i])):
                     val2 = values.pop()
                     val1 = values.pop()
                     op = ops.pop()
-                    values.append(petite_libellule(val1, val2, op))
+                    values.append(appliquer_operation(val1, val2, op))
                 ops.append(expression[i])
             i += 1
 
@@ -59,11 +58,11 @@ def calcul(expression):
             val2 = values.pop()
             val1 = values.pop()
             op = ops.pop()
-            values.append(petite_libellule(val1, val2, op))
+            values.append(appliquer_operation(val1, val2, op))
 
         return values[-1]
 
-    return soleil_expression(expression)
+    return analyser_expression(expression)
 
 def main():
     print("Bienvenue dans notre super calculatrice !")
@@ -81,10 +80,5 @@ def main():
 
     print("Merci d'avoir calculé avec nous ! On espère que vos chiffres ont eu la pêche. À bientôt !")
 
-
 if __name__ == "__main__":
     main()
-
-
-
-

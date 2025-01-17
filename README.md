@@ -35,8 +35,6 @@ python menuCalculator.py
 
 Vous pouvez choisir de travailler avec des entiers ou des nombres décimaux.
 
-## API
-
 ### Le fichier `menuCalculator.py` fournit les fonctions suivantes :
 
 - `save_history_log(nb1, nb2, ope, result)`: Sauvegarde l'historique des calculs dans un fichier JSON.

@@ -22,8 +22,7 @@ def save_history_log(nb1, nb2, ope, result):
     # Add the new calculation to the history
     history.append({
         "value1": nb1,
-        "operator": operator_symbol, -t 0
-        # Pas d'opérande 2 pour les racines
+        "operator": operator_symbol,
         "value2": nb2 if nb2 != 0 or ope == 7 else None,
         "result": result
     })
@@ -33,7 +32,7 @@ def save_history_log(nb1, nb2, ope, result):
         json.dump(history, file, indent=4)
     print("Calculation saved in history.")
 
-# Function to read the history from the JSON fileF
+# Function to read the history from the JSON file
 
 
 def read_history_log():
@@ -91,7 +90,7 @@ def calculator_menu():
             while True:
                 # Choice between int or float number
                 int_and_float = str(input(
-                    "Would you like to calculate with integers or decimal numbers? (INt ou FLOAT) ")).upper()
+                    "Would you like to calculate with integers or decimal numbers? (INT ou FLOAT) ")).upper()
                 if int_and_float != "INT" and int_and_float != "FLOAT" and int_and_float != "I" and int_and_float != "F":
                     print("Enter INT ou FLOAT")
                 else:

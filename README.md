@@ -50,10 +50,6 @@ Vous pouvez choisir de travailler avec des entiers ou des nombres décimaux.
 
 Si vous trouvez des problèmes ou avez des suggestions d'améliorations, n'hésitez pas à ouvrir une nouvelle issue ou à soumettre une pull request sur le dépôt GitHub du projet.
 
-## Licence
-
-Ce projet est sous la licence [MIT License](LICENSE).
-
 ## Tests
 
 Pour tester la Calculatrice de Menu, vous pouvez exécuter le fichier `menuCalculator.py` et essayer les différentes fonctionnalités, telles que la réalisation de calculs mathématique, la sauvegarde et la lecture de l'historique, ainsi que l'effacement de l'historique grace à Json.

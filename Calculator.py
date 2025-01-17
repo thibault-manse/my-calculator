@@ -79,7 +79,7 @@ def calculator_menu():
                     nb1 = int(input("Enter your first number : "))
                 except ValueError:
                     print("Enter an integer, please.")
-                nb2, ope, flag = choix(flag, int_and_float)
+                nb2, ope, flag = operator(flag, int_and_float)
                 calc(nb1, nb2, ope, result, flag3, flag, int_and_float)
             elif int_and_float == "FLOAT" or int_and_float == "F":
                 try:
@@ -87,7 +87,7 @@ def calculator_menu():
                 except ValueError:
                     print(
                         "Enter a floating-point number, please (using a dot, not a comma)")
-                nb2, ope, flag = choix(flag, int_and_float)
+                nb2, ope, flag = operator(flag, int_and_float)
                 calc(nb1, nb2, ope, result, flag3, flag, int_and_float)
 
         else:

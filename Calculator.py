@@ -1,3 +1,8 @@
+"""
+function log history calculator
+"""
+
+
 def save_history_log(nb1, nb2, ope, result):
     with open('calculation_history.log', 'a') as log_file:
         if ope == 1:
@@ -41,6 +46,11 @@ def clear_history_log():
         print("\nThe history has been successfully cleared.")
     except Exception as e:
         print(f"Error deleting the history: {e}")
+
+
+"""
+function calculator
+"""
 
 
 def calculator_menu():

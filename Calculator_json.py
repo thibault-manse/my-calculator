@@ -7,7 +7,7 @@ function json history calculator
 # Function to save the history in a JSON file
 
 
-def save_history_log(nb1, nb2, ope, result):
+def save_history(nb1, nb2, ope, result):
     # Determines the operator as a symbol
     operators = {1: '+', 2: '-', 3: 'x',
                  4: '/', 5: '%', 6: '^', 7: '√', 8: '//'}
@@ -23,7 +23,6 @@ def save_history_log(nb1, nb2, ope, result):
     history.append({
         "value1": nb1,
         "operator": operator_symbol,
-        # Pas d'opérande 2 pour les racines
         "value2": nb2 if nb2 != 0 or ope == 7 else None,
         "result": result
     })
@@ -36,7 +35,7 @@ def save_history_log(nb1, nb2, ope, result):
 # Function to read the history from the JSON fileF
 
 
-def read_history_log():
+def read_history():
     if not os.path.exists('calculation_history.json'):
         print("\nHistoric is empty.")
         return
@@ -53,7 +52,7 @@ def read_history_log():
 # Function to clear the history from the JSON file
 
 
-def clear_history_log():
+def clear_history():
     if os.path.exists('calculation_history.json'):
         os.remove('calculation_history.json')
         print("\nThe historic is clear.")
@@ -82,10 +81,10 @@ def calculator_menu():
             print("Thank you for using the calculator! Bye.")
             break
         elif choice == '1':  # Clear history
-            clear_history_log()
+            clear_history()
             print("History cleared.")
         elif choice == '2':  # Read history
-            read_history_log()
+            read_history()
             print("Read history")
         elif choice == '3':  # Calculate
             while True:
@@ -98,7 +97,7 @@ def calculator_menu():
                     break
             if int_and_float == "INT" or int_and_float == "I":
                 try:
-                    # fisrt number to calculate
+                    # first number to calculate
                     nb1 = int(input("Enter your first number : "))
                 except ValueError:
                     print("Enter an integer, please.")
@@ -127,7 +126,7 @@ def operator(flag, int_and_float):
     while flag == 0:
         try:
             ope = int(input(
-                "Choose an operator : \n 1 : + \n 2 : - \n 3 : x \n 4 : / \n 5 : % \n 6 : power \n 7 : root \n 8 : Euclidien div.  \n"))
+                "Choose an operator : \n 1 : + \n 2 : - \n 3 : x \n 4 : / \n 5 : % \n 6 : power \n 7 : root \n 8 : Euclidian div.  \n"))
         except ValueError:
             print("Enter an integer, please.")
         else:
@@ -177,35 +176,35 @@ def calc(nb1, nb2, ope, result, flag3, flag, int_and_float):
         if ope == 1:
             result = nb1 + nb2
             print(nb1, "+", nb2, "=", result)
-            save_history_log(nb1, nb2, ope, result)
+            save_history(nb1, nb2, ope, result)
         if ope == 2:
             result = nb1 - nb2
             print(nb1, "-", nb2, "=", result)
-            save_history_log(nb1, nb2, ope, result)
+            save_history(nb1, nb2, ope, result)
         if ope == 3:
             result = nb1 * nb2
             print(nb1, "x", nb2, "=", result)
-            save_history_log(nb1, nb2, ope, result)
+            save_history(nb1, nb2, ope, result)
         if ope == 4:
             result = nb1 / nb2
             print(nb1, "/", nb2, "=", result)
-            save_history_log(nb1, nb2, ope, result)
+            save_history(nb1, nb2, ope, result)
         if ope == 5:
             result = nb1 % nb2
             print(nb1, "%", nb2, "=", result)
-            save_history_log(nb1, nb2, ope, result)
+            save_history(nb1, nb2, ope, result)
         if ope == 6:
             result = nb1 ** nb2
             print(nb1, "^", nb2, "=", result)
-            save_history_log(nb1, nb2, ope, result)
+            save_history(nb1, nb2, ope, result)
         if ope == 7:
             result = nb1 ** 0.5
             print("Square root of ", nb1, "=", result)
-            save_history_log(nb1, nb2, ope, result)
+            save_history(nb1, nb2, ope, result)
         if ope == 8:
             result = nb1 // nb2
             print(nb1, "//", nb2, "=", result)
-            save_history_log(nb1, nb2, ope, result)
+            save_history(nb1, nb2, ope, result)
         flag3 = 1
 
     elif flag3 == 1:  # if it's not the first calculation
@@ -213,35 +212,35 @@ def calc(nb1, nb2, ope, result, flag3, flag, int_and_float):
         if ope == 1:
             result = result + nb2
             print(result_prev, "+", nb2, "=", result)
-            save_history_log(result_prev, nb2, ope, result)
+            save_history(result_prev, nb2, ope, result)
         if ope == 2:
             result = result - nb2
             print(result_prev, "-", nb2, "=", result)
-            save_history_log(result_prev, nb2, ope, result)
+            save_history(result_prev, nb2, ope, result)
         if ope == 3:
             result = result * nb2
             print(result_prev, "x", nb2, "=", result)
-            save_history_log(result_prev, nb2, ope, result)
+            save_history(result_prev, nb2, ope, result)
         if ope == 4:
             result = result / nb2
             print(result_prev, "/", nb2, "=", result)
-            save_history_log(result_prev, nb2, ope, result)
+            save_history(result_prev, nb2, ope, result)
         if ope == 5:
             result = result % nb2
             print(result_prev, "%", nb2, "=", result)
-            save_history_log(result_prev, nb2, ope, result)
+            save_history(result_prev, nb2, ope, result)
         if ope == 6:
             result = result ** nb2
             print(result_prev, "^", nb2, "=", result)
-            save_history_log(result_prev, nb2, ope, result)
+            save_history(result_prev, nb2, ope, result)
         if ope == 7:
             result = result ** 0.5
             print("Square root of ", result_prev, "=", result)
-            save_history_log(result_prev, nb2, ope, result)
+            save_history(result_prev, nb2, ope, result)
         if ope == 8:
             result = result // nb2
             print(result_prev, "//", nb2, "=", result)
-            save_history_log(result_prev, nb2, ope, result)
+            save_history(result_prev, nb2, ope, result)
 
     # choice to continue the calculation or not
     while True:
@@ -262,5 +261,5 @@ def calc(nb1, nb2, ope, result, flag3, flag, int_and_float):
 
 
 if __name__ == "__main__":
-    read_history_log()
+    read_history()
     calculator_menu()

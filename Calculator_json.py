@@ -19,7 +19,7 @@ def save_history(nb1, nb2, ope, result):
         with open('calculation_history.json', 'r') as file:
             history = json.load(file)
 
-    # Add the new calculation to the history
+    # Add in list history the dictionary with the calculation
     history.append({
         "value1": nb1,
         "operator": operator_symbol,

@@ -60,5 +60,9 @@ Pour tester la Calculatrice de Menu, vous pouvez exécuter le fichier `menuCalcu
 - Thibault Manse  
 - Vanessa Sabatier  
 - Joseph Dmytriyev  
-- Florence Navet  
+- Florence Navet
+
+## Licence
+Ce projet est sous licence MIT. Vous êtes libre de l'utiliser, le modifier et le distribuer avec attribution. Consultez le fichier `LICENSE` pour plus d'informations.  
+
 

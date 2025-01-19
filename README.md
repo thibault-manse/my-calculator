@@ -46,8 +46,19 @@ Vous pouvez choisir de travailler avec des entiers ou des nombres décimaux.
 
 ## Contribution
 
-Si vous trouvez des problèmes ou avez des suggestions d'améliorations, n'hésitez pas à ouvrir une nouvelle issue ou à soumettre une pull request sur le dépôt GitHub du projet.
+Forkez le projet et clonez votre copie.  
+Créez une nouvelle branche : ```git checkout -b feature/ma-nouvelle-fonctionnalité. ```  
+Faites vos modifications et commitez-les : ```git commit -m "Ajout de ma fonctionnalité".```  
+Poussez vos modifications : ```git push origin feature/ma-nouvelle-fonctionnalité.```  
+Soumettez une pull request pour examen.  
 
 ## Tests
 
-Pour tester la Calculatrice de Menu, vous pouvez exécuter le fichier `menuCalculator.py` et essayer les différentes fonctionnalités, telles que la réalisation de calculs mathématique, la sauvegarde et la lecture de l'historique, ainsi que l'effacement de l'historique grace à Json.
+Pour tester la Calculatrice de Menu, vous pouvez exécuter le fichier `menuCalculator.py` et essayer les différentes fonctionnalités, telles que la réalisation de calculs mathématique, la sauvegarde et la lecture de l'historique, ainsi que l'effacement de l'historique grace à Json.  
+
+## Contributeurs
+- Thibault Manse  
+- Vanessa Sabatier  
+- Joseph Dmytriyev  
+- Florence Navet  
+

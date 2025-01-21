@@ -74,10 +74,10 @@ def calcul_long(ope, nb1, nb2):
         result = nb1 * nb2
     elif ope == "/":
         if nb2 == 0:
-            raise ZeroDivisionError("Division par zéro détectée.")
+            raise ZeroDivisionError("Division by zero detected.")
         result = nb1 / nb2
     else:
-        raise ValueError(f"Opérateur inconnu : {ope}")
+        raise ValueError(f"Operator unknown: {ope}")
 
     # Save the operation to history
     save_history_log(nb1, nb2, ["+", "-", "*", "/"].index(ope) + 1, result)
@@ -85,12 +85,12 @@ def calcul_long(ope, nb1, nb2):
 
 def compound_calculation():
     try:
-        operations = [int(input("Entrez le premier nombre : "))]
+        operations = [int(input("Put the first number : "))]
         pr_calc = [operations[0]]
 
         while True:
-            calcul = input("T'as le choix entre ces calculs : '+', '-', '*', '/' ou tape 'fin' si t'en peux plus : ")
-            if calcul == "fin":
+            calcul = input("You have the choice between : '+', '-', '*', '/' ou write fin end you can't anymore: ")
+            if calcul == "end":
                 while len(operations) > 1:
                     idx = next((i for i in range(1, len(operations), 2) if operations[i] in "*/"), None)
                     if idx is None:
@@ -111,19 +111,19 @@ def compound_calculation():
                 break
 
             if calcul in {"+", "-", "*", "/"}:
-                following = int(input("Entre ton nombre : "))
+                following = int(input("Put the number : "))
                 operations.append(calcul)
                 pr_calc.append(calcul)
                 operations.append(following)
                 pr_calc.append(following)
                 print(f"État actuel : {operations}")
             else:
-                print("J'ai pas été clair, apprends à lire.")
+                print("haven't i been clear, learn to read.")
 
     except ValueError:
-        print("Erreur : entre des nombres et des opérateurs valides.")
+        print("Erreur : put numbers and operators available.")
     except ZeroDivisionError:
-        print("Erreur : Division par zéro détectée.")
+        print("Erreur : Division by zero detected.")
 
 
 def calculator_menu():

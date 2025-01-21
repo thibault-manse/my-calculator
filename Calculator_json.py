@@ -89,7 +89,7 @@ def compound_calculation():
         pr_calc = [operations[0]]
 
         while True:
-            calcul = input("You have the choice between : '+', '-', '*', '/' ou write fin end you can't anymore: ")
+            calcul = input("You have the choice between : '+', '-', '*', '/' ou write  end you can't anymore: ")
             if calcul == "end":
                 while len(operations) > 1:
                     idx = next((i for i in range(1, len(operations), 2) if operations[i] in "*/"), None)
